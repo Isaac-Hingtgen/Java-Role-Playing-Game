@@ -1,24 +1,22 @@
 package main.java.ser316.rpg.characters.heroes;
 
-import main.java.ser316.rpg.characters.Character;
-
-public class DarkElf extends Hero {
-	public DarkElf() {
+public class OPTestHero extends Hero {
+	public OPTestHero() {
 		resetAttributes();
 		this.birth();
 	}
 
 	@Override
 	public void resetAttributes() {
-		attack = 30;
-		defence = 20;
-		evasion = 10;
-		maxMana = 60;
-		maxHealth = 180;
+		attack = 200;
+		defence = 200;
+		evasion = 100;
+		maxMana = 1000;
+		maxHealth = 1000;
 	}
 
 	public void usePassive() {
 		System.out.println("Blessing of darkness grants 20 mana.");
-		addMana(20);
+		addMana(1000);
 	}
 }

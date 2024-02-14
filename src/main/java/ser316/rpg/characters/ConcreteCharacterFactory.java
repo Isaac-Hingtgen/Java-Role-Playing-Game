@@ -5,7 +5,7 @@ import main.java.ser316.rpg.characters.heroes.*;
 
 public class ConcreteCharacterFactory extends CharacterFactory {
 	@Override
-	public Character createHero(int type) {
+	public Hero createHero(int type) {
 		switch (type) {
 			case Hero.OGRE:
 				return new Ogre();
@@ -23,31 +23,31 @@ public class ConcreteCharacterFactory extends CharacterFactory {
 
 	@Override
 	public Enemy getRandomEnemy(int level) {   //todo: create more enemies
-		int randomNum = (int) Math.random() * 3;
+		int randomNum = (int) (Math.random() * 3);
 		switch (level) {
 			case Enemy.BOSS: {
 				if(randomNum == 0)
-					return new Goblin();
+					return new Demon();
 				if(randomNum == 1)
-					return new Goblin();
+					return new Dragon();
 				if(randomNum == 2)
-					return new Goblin();
+					return new Vampire();
 			}
 			case Enemy.MEDIUM: {
 				if(randomNum == 0)
-					return new Goblin();
+					return new Giant();
 				if(randomNum == 1)
-					return new Goblin();
+					return new Golem();
 				if(randomNum == 2)
-					return new Goblin();
+					return new Lizardman();
 			}
 			case Enemy.SMALL: {
 				if(randomNum == 0)
 					return new Goblin();
 				if(randomNum == 1)
-					return new Goblin();
+					return new Imp();
 				if(randomNum == 2)
-					return new Goblin();
+					return new Treant();
 			}
 			default:
 				return null;

@@ -1,17 +1,17 @@
 package main.java.ser316.rpg.characters.enemies;
 
-public class Goblin extends Enemy {
-	public Goblin() {
+public class Golem extends Enemy {
+	public Golem() {
 		resetAttributes();
 		this.birth();
 	}
 
 	@Override
 	public void resetAttributes() {
-		attack = 15;
-		defence = 30;
-		evasion = 10;
+		attack = 25;
+		defence = 40;
+		evasion = 0;
 		maxMana = 0;
-		maxHealth = 50;
+		maxHealth = 120;
 	}
 }
