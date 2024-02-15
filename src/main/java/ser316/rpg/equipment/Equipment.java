@@ -11,6 +11,7 @@ public abstract class Equipment extends Items {
 	protected int evasionBonus = 0;
 	protected int healthBonus = 0;
 	protected int manaBonus = 0;
+	protected int weight = 0;
 
 	public static Equipment getRandomEquipment(int level) {
 		while(true) {
@@ -26,10 +27,14 @@ public abstract class Equipment extends Items {
 		}
 	}
 
+	public int getWeight() {
+		return weight;
+	}
+
 	public void addBonus(Hero hero) {
-		hero.setDefenceBonus(defenceBonus);
-		hero.setAttackBonus(attackBonus);
-		hero.setEvasionBonus(evasionBonus);
+		hero.addDefenceBonus(defenceBonus);
+		hero.addAttackBonus(attackBonus);
+		hero.addEvasionBonus(evasionBonus);
 		hero.addHealth(healthBonus);
 		hero.addMana(manaBonus);
 	}

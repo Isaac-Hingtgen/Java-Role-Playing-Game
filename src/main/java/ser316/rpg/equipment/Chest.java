@@ -12,6 +12,7 @@ public class Chest extends Equipment {
 			cost = 200;
 			defenceBonus = 20;
 			evasionBonus = -5;
+			weight = 7;
 		}
 	}
 
@@ -20,6 +21,7 @@ public class Chest extends Equipment {
 			cost = 500;
 			defenceBonus = 60;
 			evasionBonus = -12;
+			weight = 15;
 		}
 	}
 }

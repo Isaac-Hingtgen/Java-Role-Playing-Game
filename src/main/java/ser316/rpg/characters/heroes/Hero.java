@@ -86,6 +86,12 @@ public abstract class Hero extends Character {
 		if(weapon != null) weapon.addBonus(this);
 	}
 
+	public void resetBonuses() {
+		attackBonus = 0;
+		defenceBonus = 0;
+		evasionBonus = 0;
+	}
+
 	public void winsFight() {
 		Enemy enemy = (Enemy) _opponent;
 		int experienceGained = (int)((Math.random() * 0.5 + 0.75) * (2 * enemy.level + enemy.type * enemy.type * 5));
@@ -98,14 +104,14 @@ public abstract class Hero extends Character {
 
 	public abstract void usePassive();
 
-	public void setDefenceBonus(int defenceBonus) {
-		this.defenceBonus = defenceBonus;
+	public void addDefenceBonus(int defenceBonus) {
+		this.defenceBonus += defenceBonus;
 	}
-	public void setAttackBonus(int attackBonus) {
-		this.attackBonus = attackBonus;
+	public void addAttackBonus(int attackBonus) {
+		this.attackBonus += attackBonus;
 	}
-	public void setEvasionBonus(int evasionBonus) {
-		this.evasionBonus = evasionBonus;
+	public void addEvasionBonus(int evasionBonus) {
+		this.evasionBonus += evasionBonus;
 	}
 
 	public int getGold() {

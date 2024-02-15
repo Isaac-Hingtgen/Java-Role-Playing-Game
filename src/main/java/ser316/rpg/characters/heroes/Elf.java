@@ -21,6 +21,15 @@ public class Elf extends Hero {
 
 	@Override
 	public void usePassive() {
-		//todo: make faster if light or no armour equiped
+		int totalArmourWeight = 0;
+		if(chest != null) totalArmourWeight += chest.getWeight();
+		if(boots != null) totalArmourWeight += boots.getWeight();
+		if(weapon != null) totalArmourWeight += weapon.getWeight();
+		if(helmet != null) totalArmourWeight += helmet.getWeight();
+		int bonus = 35 - totalArmourWeight;
+		if(bonus < 0) bonus = 0;
+		evasionBonus += bonus;
+
+		System.out.println(this + " has " + bonus + " increased evasion due to lightfooted passive (increased evasion with less armour).");
 	}
 }

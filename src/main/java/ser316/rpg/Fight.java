@@ -17,6 +17,7 @@ public class Fight {
 	}
 
 	public void init(Scanner in) {
+		hero.resetBonuses();
 		hero.setEquipmentBonuses();
 		try {
 			hero.beginFight();
@@ -72,6 +73,5 @@ public class Fight {
 			System.out.println("Press <ENTER> to continue.");
 			in.nextLine();
 		}
-
 	}
 }

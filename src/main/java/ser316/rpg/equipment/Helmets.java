@@ -5,6 +5,7 @@ public class Helmets extends Equipment {
 		public helmet_of_illumination() {
 			defenceBonus = 20;
 			evasionBonus = 15;
+			weight = 3;
 		}
 	}
 }
