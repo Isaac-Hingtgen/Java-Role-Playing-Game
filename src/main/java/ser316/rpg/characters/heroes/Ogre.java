@@ -5,6 +5,7 @@ import main.java.ser316.rpg.characters.Character;
 
 public class Ogre extends Hero {
 	public Ogre() {
+		super();
 		resetAttributes();
 		this.birth();
 	}

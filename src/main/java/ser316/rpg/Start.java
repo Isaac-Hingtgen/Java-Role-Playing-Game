@@ -21,15 +21,19 @@ public class Start {
 //        Hero myHero = characterFactory.createHero(Hero.DARK_ELF);
         Hero myHero = new OPTestHero();
         myHero.setAffinity(Affinity.ASSASSIN);
+        Shop shop = new Shop(input, myHero);
 
         int curFloor = 0;
 
         while(!myHero.isDead()) {
             System.out.println("Currently on floor " + ++curFloor + ".\n");
-            int enemyType = Enemy.SMALL;
-            if (curFloor % 5 == 0) enemyType = Enemy.MEDIUM;
-            if (curFloor % 10 == 0) enemyType = Enemy.BOSS;
-            Enemy myOpponent = characterFactory.getRandomEnemy(enemyType);
+
+            System.out.println("Would you like to visit the shop? (y/n)");
+            if(input.nextLine().toLowerCase().equals("y")) {
+                shop.goToShop(curFloor);
+            }
+
+            Enemy myOpponent = characterFactory.getRandomEnemy(curFloor);
 
             Fight fight = new Fight(myHero, myOpponent);
             fight.init(input);

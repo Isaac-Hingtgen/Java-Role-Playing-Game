@@ -22,36 +22,51 @@ public class ConcreteCharacterFactory extends CharacterFactory {
 	}
 
 	@Override
-	public Enemy getRandomEnemy(int level) {   //todo: create more enemies
+	public Enemy getRandomEnemy(int curFloor) {
+		int enemyType = Enemy.SMALL;
+		if (curFloor % 5 == 0) enemyType = Enemy.MEDIUM;
+		if (curFloor % 10 == 0) enemyType = Enemy.BOSS;
+
 		int randomNum = (int) (Math.random() * 3);
-		switch (level) {
+
+		Enemy enemy = null;
+		switch (enemyType) {
 			case Enemy.BOSS: {
 				if(randomNum == 0)
-					return new Demon();
+					enemy = new Demon();
 				if(randomNum == 1)
-					return new Dragon();
+					enemy = new Dragon();
 				if(randomNum == 2)
-					return new Vampire();
+					enemy = new Vampire();
+				break;
+
 			}
 			case Enemy.MEDIUM: {
 				if(randomNum == 0)
-					return new Giant();
+					enemy = new Giant();
 				if(randomNum == 1)
-					return new Golem();
+					enemy = new Golem();
 				if(randomNum == 2)
-					return new Lizardman();
+					enemy = new Lizardman();
+				break;
+
 			}
 			case Enemy.SMALL: {
 				if(randomNum == 0)
-					return new Goblin();
+					enemy = new Goblin();
 				if(randomNum == 1)
-					return new Imp();
+					enemy = new Imp();
 				if(randomNum == 2)
-					return new Treant();
+					enemy = new Treant();
+				break;
+
 			}
 			default:
 				return null;
 		}
+		enemy.setType(enemyType);
+		enemy.setLevel(curFloor);
+		return enemy;
 	}
 }
 

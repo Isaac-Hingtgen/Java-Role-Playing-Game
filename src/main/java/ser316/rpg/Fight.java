@@ -17,6 +17,7 @@ public class Fight {
 	}
 
 	public void init(Scanner in) {
+		hero.setEquipmentBonuses();
 		try {
 			hero.beginFight();
 			System.out.println(hero + " encountered a " + enemy + ".");
@@ -28,12 +29,13 @@ public class Fight {
 
 		while(!hero.isDead() && !enemy.isDead()) {
 			System.out.println("Select your attack:");
-			System.out.println("1: Physical Attack");
-			System.out.println("2: Magic Attack");
-			System.out.println("3: Special Attack");
+			System.out.println("\t1: Physical Attack");
+			System.out.println("\t2: Magic Attack");
+			System.out.println("\t3: Special Attack");
 
 			try {
 				//int attack = in.nextInt();
+//				in.nextLine();
 				int attack = 3;
 				switch (attack) {
 					case 1: {
@@ -62,11 +64,12 @@ public class Fight {
 				enemy.displayStatus();
 				if (enemy.getCurMana() != 0 && Math.random() > 0.80) enemy.magicAttack(enemy.getCurMana());
 				else enemy.attack();
+			} else {
+				hero.winsFight();
 			}
 
 			hero.displayStatus();
 			System.out.println("Press <ENTER> to continue.");
-			in.nextLine();
 			in.nextLine();
 		}
 

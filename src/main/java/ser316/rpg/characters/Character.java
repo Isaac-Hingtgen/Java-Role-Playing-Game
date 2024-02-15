@@ -3,6 +3,7 @@ package main.java.ser316.rpg.characters;
 import main.java.ser316.rpg.characters.affinities.Affinity;
 import main.java.ser316.rpg.characters.affinities.AffinityFactory;
 import main.java.ser316.rpg.characters.affinities.Warlock;
+import main.java.ser316.rpg.equipment.*;
 
 public abstract class Character {
 
@@ -14,8 +15,13 @@ public abstract class Character {
 	protected int attack;
 	protected int defence;
 	protected int evasion;
+
+	protected int attackBonus = 0;
+	protected int defenceBonus = 0;
+	protected int evasionBonus = 0;
 	protected boolean specialAttackUsed;
 	protected boolean specialAttackUsedLastTurn;
+
 
 	public void birth() {
 		curHealth = maxHealth;
@@ -52,10 +58,15 @@ public abstract class Character {
 			specialAttackUsedLastTurn = false;
 		}
 
+		int opEvasion = _opponent.evasion + _opponent.evasionBonus;
+		int opDefence = _opponent.defence + _opponent.defenceBonus;
+		int myEvasion = evasion + evasionBonus;
+		int myAttack = attack + attackBonus;
+
 		String response = "";
 		double rand = Math.random();
-		double missProbability = 2.0 * rand * (75 + (_opponent.evasion - this.evasion)) / 100.0;
-		double criticalProbability = 2.0 * rand * (75 + (this.evasion - _opponent.evasion)) / 100.0;
+		double missProbability = 2.0 * rand * (75 + (opEvasion - myEvasion)) / 100.0;
+		double criticalProbability = 2.0 * rand * (75 + (myEvasion - opEvasion)) / 100.0;
 		double damageMultiplier = 1;
 
 		if(missProbability > 1) {
@@ -65,10 +76,10 @@ public abstract class Character {
 			damageMultiplier = 2;
 		}
 
-		damageMultiplier += (attack / 100.0 - _opponent.defence / 100.0);
+		damageMultiplier += (myAttack / 100.0 - opDefence / 100.0);
 		if(damageMultiplier < 0) damageMultiplier = 0;
 
-		damage = (int) Math.ceil(damage * damageMultiplier);
+		damage = (int) Math.ceil(damage * damageMultiplier * (Math.random() / 2.0 + 0.75));
 
 		_opponent.removeHealth(damage);
 

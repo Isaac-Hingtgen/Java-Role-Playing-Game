@@ -9,8 +9,8 @@ public class OPTestHero extends Hero {
 	@Override
 	public void resetAttributes() {
 		attack = 200;
-		defence = 200;
-		evasion = 100;
+		defence = 20;
+		evasion = 10;
 		maxMana = 1000;
 		maxHealth = 1000;
 	}

@@ -5,6 +5,7 @@ import main.java.ser316.rpg.characters.Character;
 public class Elf extends Hero {
 
 	public Elf() {
+		super();
 		resetAttributes();
 		this.birth();
 	}
