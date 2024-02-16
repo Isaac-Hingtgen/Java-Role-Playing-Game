@@ -1,15 +1,18 @@
 package main.java.ser316.rpg.characters.heroes;
 
-import main.java.ser316.rpg.Consumables;
+import main.java.ser316.rpg.consumables.Consumables;
+import main.java.ser316.rpg.consumables.DurationBasedConsumable;
 import main.java.ser316.rpg.Items;
 import main.java.ser316.rpg.characters.Character;
 import main.java.ser316.rpg.characters.affinities.Affinity;
 import main.java.ser316.rpg.characters.affinities.AffinityFactory;
 import main.java.ser316.rpg.characters.affinities.Warlock;
 import main.java.ser316.rpg.characters.enemies.Enemy;
+import main.java.ser316.rpg.consumables.large_potion;
 import main.java.ser316.rpg.equipment.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class Hero extends Character {
 
@@ -140,5 +143,30 @@ public abstract class Hero extends Character {
 
 	public void removeGold(int gold) {
 		this.gold -= gold;
+	}
+
+	public void usePotion(Scanner in) {
+		consumables.add(new large_potion());
+
+		System.out.println("What potion would you like to use?");
+		for (int i = 0; i < consumables.size(); i++) {
+			System.out.println("" + (i + 1) + ": " + consumables.get(i).getName());
+		}
+		System.out.println("0: Cancel.");
+	    int choice = in.nextInt();
+		choice--;
+		in.nextLine();
+		if(choice >= 0 && choice < consumables.size()) {
+			Consumables s = consumables.get(choice);
+			System.out.println(s.getName() + " was used.");
+			if(s instanceof DurationBasedConsumable) {
+				consumablesInEffect.add(s);
+			}
+			s.addBonus(this);
+			displayStatus();
+			System.out.println();
+		} else {
+			System.out.println("Selection cancelled.");
+		}
 	}
 }

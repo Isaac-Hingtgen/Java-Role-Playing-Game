@@ -1,6 +1,7 @@
 package main.java.ser316.rpg;
 
 import main.java.ser316.rpg.characters.heroes.Hero;
+import main.java.ser316.rpg.consumables.Consumables;
 
 import java.util.Scanner;
 
@@ -39,7 +40,7 @@ public class Shop {
 		} else if (item.isSold()) {
 			System.out.println("Item was already sold.");
 		} else {
-			if(customer.getNumberOfConsumables() >= 3) {
+			if(item instanceof Consumables && customer.getNumberOfConsumables() >= 3) {
 				System.out.println("Not enough room in inventory.");
 			} else {
 				System.out.println(item.getName() + " purchased.");

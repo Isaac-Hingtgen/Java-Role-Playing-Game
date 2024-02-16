@@ -29,15 +29,15 @@ public class Fight {
 		}
 
 		while(!hero.isDead() && !enemy.isDead()) {
-			System.out.println("Select your attack:");
+			System.out.println("Select your move:");
 			System.out.println("\t1: Physical Attack");
 			System.out.println("\t2: Magic Attack");
 			System.out.println("\t3: Special Attack");
+			System.out.println("\t4: Use Potion");
 
 			try {
-				//int attack = in.nextInt();
-//				in.nextLine();
-				int attack = 3;
+				int attack = in.nextInt();
+				in.nextLine();
 				switch (attack) {
 					case 1: {
 						hero.attack();
@@ -52,6 +52,10 @@ public class Fight {
 					case 3: {
 						hero.specialAttack();
 						break;
+					}
+					case 4: {
+						hero.usePotion(in);
+						continue;
 					}
 					default:
 						throw new InputMismatchException();

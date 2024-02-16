@@ -17,6 +17,6 @@ public class OPTestHero extends Hero {
 
 	public void usePassive() {
 		System.out.println("Blessing of darkness grants 20 mana.");
-		addMana(1000);
+		addMana(20);
 	}
 }

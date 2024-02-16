@@ -31,13 +31,7 @@ public abstract class Equipment extends Items {
 		return weight;
 	}
 
-	public void addBonus(Hero hero) {
-		hero.addDefenceBonus(defenceBonus);
-		hero.addAttackBonus(attackBonus);
-		hero.addEvasionBonus(evasionBonus);
-		hero.addHealth(healthBonus);
-		hero.addMana(manaBonus);
-	}
+
 }
 
 
