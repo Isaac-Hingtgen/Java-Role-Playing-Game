@@ -23,6 +23,10 @@ public abstract class Consumables extends Items {
 				return null;
 		}
 	}
+	@Override
+	public String getDescription() {
+		return description;
+	}
 }
 
 class large_potion extends Consumables {

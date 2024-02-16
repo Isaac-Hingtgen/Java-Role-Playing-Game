@@ -9,14 +9,16 @@ import java.util.Scanner;
 public class Fight {
 	Hero hero = null;
 	Enemy enemy = null;
-	public Fight(Hero hero, Enemy enemy) {
+	Seasons season = null;
+	public Fight(Hero hero, Enemy enemy, Seasons season) {
 		this.hero = hero;
 		this.enemy = enemy;
+		this.season = season;
 		hero.setOpponent(enemy);
 	}
 
 	public void init(Scanner in) {
-		hero.resolveBonuses();
+		hero.resolveBonuses(season);
 		try {
 			hero.beginFight();
 			System.out.println(hero + " encountered a " + enemy + ".");

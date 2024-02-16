@@ -44,7 +44,7 @@ public class Shop {
 			if(item instanceof Consumables && customer.getNumberOfConsumables() >= 3) {
 				System.out.println("Not enough room in inventory.");
 			} else {
-				System.out.println(item.getName() + " purchased.");
+				System.out.println(item + " purchased.");
 				item.setSold(true);
 				customer.removeGold(item.getCost());
 				customer.equip(item);

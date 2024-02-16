@@ -25,6 +25,15 @@ public abstract class Equipment extends Items {
 		}
 	}
 
+	@Override
+	public String getDescription() {
+		return ((evasionBonus == 0) ? "" : String.format(" (Evasion: %+d) ", evasionBonus)) +
+				((attackBonus == 0) ? "" : String.format(" (Attack: %+d) ", attackBonus)) +
+				((defenceBonus == 0) ? "" : String.format(" (Defence: %+d) ", defenceBonus)) +
+				((healthBonus == 0) ? "" : String.format(" (Heath gain per floor: %+d) ", healthBonus)) +
+				((manaBonus == 0) ? "" : String.format(" (Mana gain per floor: %+d) ", manaBonus));
+	}
+
 	public int getWeight() {
 		return weight;
 	}

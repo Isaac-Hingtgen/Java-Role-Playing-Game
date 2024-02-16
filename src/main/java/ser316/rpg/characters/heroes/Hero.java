@@ -1,5 +1,6 @@
 package main.java.ser316.rpg.characters.heroes;
 
+import main.java.ser316.rpg.Seasons;
 import main.java.ser316.rpg.consumables.Consumables;
 import main.java.ser316.rpg.consumables.DurationBasedConsumable;
 import main.java.ser316.rpg.Items;
@@ -80,7 +81,7 @@ public abstract class Hero extends Character {
 		specialAttackUsedLastTurn = false;
 	}
 
-	public void resolveBonuses() {
+	public void resolveBonuses(Seasons curSeason) {
 		resetBonuses();
 		if(chest != null) chest.addBonus(this);
 		if(boots != null) boots.addBonus(this);
@@ -95,12 +96,11 @@ public abstract class Hero extends Character {
 				consumablesInEffect.remove(i);
 			}
 		}
-
-
+		curSeason.addStatModifiers(this);
 	}
 
-	public void displayStats() {
-		resolveBonuses();
+	public void displayStats(Seasons season) {
+		resolveBonuses(season);
 		displayStatus();
 		System.out.println("\tEvasion: " + (evasion) + String.format("(%+d)", evasionBonus));
 		System.out.println("\tAttack: " + (attack) + String.format("(%+d)", attackBonus));
@@ -149,19 +149,19 @@ public abstract class Hero extends Character {
 
 	public void displayEquipment() {
 		System.out.print("Helmet: ");
-		if(helmet != null) System.out.println(helmet.getName());
+		if(helmet != null) System.out.println(helmet.toString());
 		else System.out.println("None");
 		System.out.print("Chest: ");
-		if(chest != null) System.out.println(chest.getName());
+		if(chest != null) System.out.println(chest.toString());
 		else System.out.println("None");
 		System.out.print("Jewelry: ");
-		if(jewelry != null) System.out.println(jewelry.getName());
+		if(jewelry != null) System.out.println(jewelry.toString());
 		else System.out.println("None");
 		System.out.print("Weapon: ");
-		if(weapon != null) System.out.println(weapon.getName());
+		if(weapon != null) System.out.println(weapon.toString());
 		else System.out.println("None");
 		System.out.print("Boots: ");
-		if(boots != null) System.out.println(boots.getName());
+		if(boots != null) System.out.println(boots.toString());
 		else System.out.println("None");
 	}
 
@@ -177,7 +177,7 @@ public abstract class Hero extends Character {
 	public void usePotion(Scanner in) {
 		System.out.println("What potion would you like to use?");
 		for (int i = 0; i < consumables.size(); i++) {
-			System.out.println("" + (i + 1) + ": " + consumables.get(i).getName());
+			System.out.println("" + (i + 1) + ": " + consumables.get(i).toString());
 		}
 		System.out.println("0: Cancel.");
 	    int choice = in.nextInt();
@@ -186,7 +186,7 @@ public abstract class Hero extends Character {
 
 		if(choice >= 0 && choice < consumables.size()) {
 			Consumables s = consumables.get(choice);
-			System.out.println(s.getName() + " was used.");
+			System.out.println(s.toString() + " was used.");
 			if(s instanceof DurationBasedConsumable) {
 				consumablesInEffect.add((DurationBasedConsumable) s);
 			}

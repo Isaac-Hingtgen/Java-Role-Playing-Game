@@ -27,9 +27,12 @@ public abstract class Items {
 			return Equipment.getRandomEquipment(level);
 		}
 	}
-	public String getDescription() {
-		return description;
+
+	public abstract String getDescription();
+	public String toString() {
+		return getName() + getDescription();
 	}
+
 	public String getName() {
 		return this.getClass().getSimpleName();
 	}
