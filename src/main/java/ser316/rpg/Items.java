@@ -8,6 +8,8 @@ import main.java.ser316.rpg.equipment.Equipment;
 
 public abstract class Items {
 	protected int cost;
+	protected String description = "";
+
 	protected int healthBonus = 0;
 	protected int manaBonus = 0;
 	protected int attackBonus = 0;
@@ -25,7 +27,9 @@ public abstract class Items {
 			return Equipment.getRandomEquipment(level);
 		}
 	}
-
+	public String getDescription() {
+		return description;
+	}
 	public String getName() {
 		return this.getClass().getSimpleName();
 	}

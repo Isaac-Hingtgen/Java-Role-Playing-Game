@@ -145,6 +145,7 @@ public abstract class Hero extends Character {
 
 	public void removeGold(int gold) {
 		this.gold -= gold;
+		if(this.gold < 0) this.gold = 0;
 	}
 
 	public void usePotion(Scanner in) {

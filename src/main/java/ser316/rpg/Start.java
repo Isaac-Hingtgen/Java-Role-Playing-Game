@@ -23,25 +23,35 @@ public class Start {
         myHero.setAffinity(Affinity.ASSASSIN);
         Shop shop = new Shop(input, myHero);
 
-        int curFloor = 0;
+        int curFloor = 1;
+        String in = "";
 
-        while(!myHero.isDead()) {
-            System.out.println("Currently on floor " + ++curFloor + ".\n");
+        do {
+            System.out.println("Currently on floor " + curFloor + ".\n");
 
-            System.out.println("Would you like to visit the shop? (y/n)");
-            if(input.nextLine().toLowerCase().equals("y")) {
+            System.out.println("What would you like to do? (s)hop, (c)haracter stats, (f)ight, (q)uit");
+            in = input.nextLine().toLowerCase();
+            if (in.equals("s")) {
                 shop.goToShop(curFloor);
+            } else if (in.equals("c")) {
+                myHero.displayStats();
+            } else if (in.equals("f")) {
+                Enemy myOpponent = characterFactory.getRandomEnemy(curFloor);
+
+                Fight fight = new Fight(myHero, myOpponent);
+                fight.init(input);
+                curFloor++;
+
+                if (myHero.isDead()) {
+                    System.out.println("You have died.");
+                    curFloor = 1;
+                    myHero.removeGold((int) Math.ceil(0.25 * myHero.getGold()));
+                }
+
+                myHero.usePassive();
             }
-
-            Enemy myOpponent = characterFactory.getRandomEnemy(curFloor);
-
-            Fight fight = new Fight(myHero, myOpponent);
-            fight.init(input);
-
-            if(myHero.isDead()) break;
-
-            myHero.usePassive();
-        }
+        } while (!in.equals("q"));
+        System.out.println("Goodbye.");
     }
 
     public int foo(int num) {

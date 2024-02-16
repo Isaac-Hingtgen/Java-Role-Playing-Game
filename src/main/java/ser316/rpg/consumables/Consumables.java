@@ -4,7 +4,6 @@ import main.java.ser316.rpg.Items;
 import main.java.ser316.rpg.characters.heroes.Hero;
 
 public abstract class Consumables extends Items {
-	protected String description;
 	private static final int NUMBER_OF_ITEMS = 7;
 	public static final int MAX_POTIONS = 3;
 
@@ -30,9 +29,7 @@ public abstract class Consumables extends Items {
 		}
 	}
 
-	public String getDescription() {
-		return description;
-	}
+
 
 }
 

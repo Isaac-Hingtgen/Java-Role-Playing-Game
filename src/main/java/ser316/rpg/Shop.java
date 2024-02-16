@@ -63,7 +63,7 @@ public class Shop {
 			if (inventory[i].isSold()) {
 				System.out.println("\t" + (i + 1) + ": Sold out.");
 			} else {
-				System.out.println("\t" + (i + 1) + ": " + inventory[i].getName() + " : " + inventory[i].getCost() + " gold.");
+				System.out.println("\t" + (i + 1) + ": " + inventory[i].getName() + " : " + inventory[i].getCost() + " gold. " + inventory[i].getDescription());
 			}
 		}
 	}
