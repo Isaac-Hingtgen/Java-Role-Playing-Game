@@ -112,13 +112,7 @@ public abstract class Character {
 		}
 	}
 
-	public void displayStats() {
-		System.out.println("Max health: " + maxHealth);
-		System.out.println("Max mana: " + maxMana);
-		System.out.println("Evasion: " + evasion + evasionBonus);
-		System.out.println("Attack: " + attack + attackBonus);
-		System.out.println("Defence: " + defence + defenceBonus);
-	}
+
 
 	public void displayStatus() {
 		System.out.println("\tCurrent health: " + curHealth + "/" + maxHealth);

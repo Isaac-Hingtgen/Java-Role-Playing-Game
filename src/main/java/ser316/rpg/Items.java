@@ -2,7 +2,7 @@ package main.java.ser316.rpg;
 
 import main.java.ser316.rpg.characters.heroes.Hero;
 import main.java.ser316.rpg.consumables.Consumables;
-import main.java.ser316.rpg.equipment.Equipment;
+import main.java.ser316.rpg.equipment.*;
 
 // items, consumables, and equipment use State design pattern
 
@@ -10,11 +10,11 @@ public abstract class Items {
 	protected int cost;
 	protected String description = "";
 
-	protected int healthBonus = 0;
-	protected int manaBonus = 0;
-	protected int attackBonus = 0;
-	protected int evasionBonus = 0;
-	protected int defenceBonus = 0;
+	protected int healthBonus;
+	protected int manaBonus;
+	protected int attackBonus;
+	protected int evasionBonus;
+	protected int defenceBonus;
 
 	protected boolean sold = false;
 
@@ -47,11 +47,11 @@ public abstract class Items {
 	}
 
 	public void addBonus(Hero hero) {
-		hero.addDefenceBonus(defenceBonus);
-		hero.addAttackBonus(attackBonus);
-		hero.addEvasionBonus(evasionBonus);
-		hero.addHealth(healthBonus);
-		hero.addMana(manaBonus);
+		hero.addDefenceBonus(this.defenceBonus);
+		hero.addAttackBonus(this.attackBonus);
+		hero.addEvasionBonus(this.evasionBonus);
+		hero.addHealth(this.healthBonus);
+		hero.addMana(this.manaBonus);
 	}
 
 }

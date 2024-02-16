@@ -29,6 +29,7 @@ public class Shop {
 			System.out.println();
 			System.out.println("Would you like to buy anything? (1-5, 0 to leave)\t Gold: " + customer.getGold());
 			ans = in.nextInt();
+			in.nextLine(); // clear line
 			if(ans > 0 && ans < 6) makePurchase(ans);
 		} while (ans != 0);
 	}

@@ -29,13 +29,15 @@ public class Start {
         do {
             System.out.println("Currently on floor " + curFloor + ".\n");
 
-            System.out.println("What would you like to do? (s)hop, (c)haracter stats, (f)ight, (q)uit");
+            System.out.println("What would you like to do? (s)hop, (c)haracter stats, (f)ight, (q)uit, check (e)quipment");
             in = input.nextLine().toLowerCase();
             if (in.equals("s")) {
                 shop.goToShop(curFloor);
             } else if (in.equals("c")) {
                 myHero.displayStats();
-            } else if (in.equals("f")) {
+            } else if (in.equals("e")) {
+                myHero.displayEquipment();
+            } else if (in.equals("f") || in.equals("1")) {
                 Enemy myOpponent = characterFactory.getRandomEnemy(curFloor);
 
                 Fight fight = new Fight(myHero, myOpponent);

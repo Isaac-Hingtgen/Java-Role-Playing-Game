@@ -26,7 +26,7 @@ public class Elf extends Hero {
 		if(boots != null) totalArmourWeight += boots.getWeight();
 		if(weapon != null) totalArmourWeight += weapon.getWeight();
 		if(helmet != null) totalArmourWeight += helmet.getWeight();
-		int bonus = 35 - totalArmourWeight;
+		int bonus = 45 - totalArmourWeight;
 		if(bonus < 0) bonus = 0;
 		evasionBonus += bonus;
 

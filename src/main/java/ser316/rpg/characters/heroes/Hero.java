@@ -10,6 +10,8 @@ import main.java.ser316.rpg.characters.affinities.Warlock;
 import main.java.ser316.rpg.characters.enemies.Enemy;
 import main.java.ser316.rpg.consumables.large_potion;
 import main.java.ser316.rpg.equipment.*;
+import main.java.ser316.rpg.equipment.Boots;
+import main.java.ser316.rpg.equipment.Weapon;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,12 +25,11 @@ public abstract class Hero extends Character {
 
 	protected ArrayList<Consumables> consumables = new ArrayList<>();
 	protected ArrayList<DurationBasedConsumable> consumablesInEffect = new ArrayList<>();
-	protected Chest chest = Chest.getChestArmour(14);
+	protected Chest chest = null;
 	protected Boots boots = null;
 	protected Helmets helmet = null;
-	protected Amulets amulets = null;
+	protected Jewelry jewelry = null;
 	protected Weapon weapon = null;
-	protected int passiveSkill;
 	protected Affinity _affinity;
 
 	protected int experience;
@@ -84,7 +85,7 @@ public abstract class Hero extends Character {
 		resetBonuses();
 		if(chest != null) chest.addBonus(this);
 		if(boots != null) boots.addBonus(this);
-		if(amulets != null) amulets.addBonus(this);
+		if(jewelry != null) jewelry.addBonus(this);
 		if(helmet != null) helmet.addBonus(this);
 		if(weapon != null) weapon.addBonus(this);
 		for(int i = 0; i < consumablesInEffect.size(); i++) {
@@ -97,6 +98,14 @@ public abstract class Hero extends Character {
 		}
 
 
+	}
+
+	public void displayStats() {
+		resolveBonuses();
+		displayStatus();
+		System.out.println("\tEvasion: " + (evasion) + String.format("(%+d)", evasionBonus));
+		System.out.println("\tAttack: " + (attack) + String.format("(%+d)", attackBonus));
+		System.out.println("\tDefence: " + (defence) + String.format("(%+d)", defenceBonus));
 	}
 
 	public void resetBonuses() {
@@ -124,8 +133,8 @@ public abstract class Hero extends Character {
 	}
 
 	public void equip(Items item) {
-		if (item instanceof Amulets) {
-			amulets = (Amulets) item;
+		if (item instanceof Jewelry) {
+			jewelry = (Jewelry) item;
 		} else if (item instanceof Chest) {
 			chest = (Chest) item;
 		} else if (item instanceof Boots) {
@@ -137,6 +146,24 @@ public abstract class Hero extends Character {
 		} else if (item instanceof Consumables) {
 			consumables.add((Consumables) item);
 		}
+	}
+
+	public void displayEquipment() {
+		System.out.print("Helmet: ");
+		if(helmet != null) System.out.println(helmet.getName());
+		else System.out.println("None");
+		System.out.print("Chest: ");
+		if(chest != null) System.out.println(chest.getName());
+		else System.out.println("None");
+		System.out.print("Jewelry: ");
+		if(jewelry != null) System.out.println(jewelry.getName());
+		else System.out.println("None");
+		System.out.print("Weapon: ");
+		if(weapon != null) System.out.println(weapon.getName());
+		else System.out.println("None");
+		System.out.print("Boots: ");
+		if(boots != null) System.out.println(boots.getName());
+		else System.out.println("None");
 	}
 
 	public int getNumberOfConsumables() {
