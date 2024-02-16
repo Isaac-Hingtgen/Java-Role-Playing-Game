@@ -22,8 +22,7 @@ public abstract class Hero extends Character {
 	public static final int MAX_NUM_CONSUMABLES = 3;
 
 	protected ArrayList<Consumables> consumables = new ArrayList<>();
-
-	protected ArrayList<Consumables> consumablesInEffect = new ArrayList<>();
+	protected ArrayList<DurationBasedConsumable> consumablesInEffect = new ArrayList<>();
 	protected Chest chest = Chest.getChestArmour(14);
 	protected Boots boots = null;
 	protected Helmets helmet = null;
@@ -81,12 +80,23 @@ public abstract class Hero extends Character {
 		specialAttackUsedLastTurn = false;
 	}
 
-	public void setEquipmentBonuses() {
+	public void resolveBonuses() {
+		resetBonuses();
 		if(chest != null) chest.addBonus(this);
 		if(boots != null) boots.addBonus(this);
 		if(amulets != null) amulets.addBonus(this);
 		if(helmet != null) helmet.addBonus(this);
 		if(weapon != null) weapon.addBonus(this);
+		for(int i = 0; i < consumablesInEffect.size(); i++) {
+			DurationBasedConsumable c = consumablesInEffect.get(i);
+			c.addBonus(this);
+			c.decrementDuration();
+			if(c.isExpired()) {
+				consumablesInEffect.remove(i);
+			}
+		}
+
+
 	}
 
 	public void resetBonuses() {
@@ -107,15 +117,7 @@ public abstract class Hero extends Character {
 
 	public abstract void usePassive();
 
-	public void addDefenceBonus(int defenceBonus) {
-		this.defenceBonus += defenceBonus;
-	}
-	public void addAttackBonus(int attackBonus) {
-		this.attackBonus += attackBonus;
-	}
-	public void addEvasionBonus(int evasionBonus) {
-		this.evasionBonus += evasionBonus;
-	}
+
 
 	public int getGold() {
 		return gold;
@@ -156,11 +158,12 @@ public abstract class Hero extends Character {
 	    int choice = in.nextInt();
 		choice--;
 		in.nextLine();
+
 		if(choice >= 0 && choice < consumables.size()) {
 			Consumables s = consumables.get(choice);
 			System.out.println(s.getName() + " was used.");
 			if(s instanceof DurationBasedConsumable) {
-				consumablesInEffect.add(s);
+				consumablesInEffect.add((DurationBasedConsumable) s);
 			}
 			s.addBonus(this);
 			displayStatus();

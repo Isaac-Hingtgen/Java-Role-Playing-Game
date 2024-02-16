@@ -115,9 +115,9 @@ public abstract class Character {
 	public void displayStats() {
 		System.out.println("Max health: " + maxHealth);
 		System.out.println("Max mana: " + maxMana);
-		System.out.println("Evasion: " + evasion);
-		System.out.println("Attack: " + attack);
-		System.out.println("Defence: " + defence);
+		System.out.println("Evasion: " + evasion + evasionBonus);
+		System.out.println("Attack: " + attack + attackBonus);
+		System.out.println("Defence: " + defence + defenceBonus);
 	}
 
 	public void displayStatus() {
@@ -144,6 +144,16 @@ public abstract class Character {
 		if(curMana > maxMana) curMana = maxMana;
 	}
 
+	public void addDefenceBonus(int defenceBonus) {
+		this.defenceBonus += defenceBonus;
+	}
 
+	public void addAttackBonus(int attackBonus) {
+		this.attackBonus += attackBonus;
+	}
+
+	public void addEvasionBonus(int evasionBonus) {
+		this.evasionBonus += evasionBonus;
+	}
 }
 

@@ -1,6 +1,5 @@
 package main.java.ser316.rpg;
 
-import main.java.ser316.rpg.characters.Character;
 import main.java.ser316.rpg.characters.enemies.Enemy;
 import main.java.ser316.rpg.characters.heroes.Hero;
 
@@ -17,8 +16,7 @@ public class Fight {
 	}
 
 	public void init(Scanner in) {
-		hero.resetBonuses();
-		hero.setEquipmentBonuses();
+		hero.resolveBonuses();
 		try {
 			hero.beginFight();
 			System.out.println(hero + " encountered a " + enemy + ".");
