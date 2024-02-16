@@ -8,7 +8,6 @@ import main.java.ser316.rpg.characters.affinities.Affinity;
 import main.java.ser316.rpg.characters.affinities.AffinityFactory;
 import main.java.ser316.rpg.characters.affinities.Warlock;
 import main.java.ser316.rpg.characters.enemies.Enemy;
-import main.java.ser316.rpg.consumables.large_potion;
 import main.java.ser316.rpg.equipment.*;
 import main.java.ser316.rpg.equipment.Boots;
 import main.java.ser316.rpg.equipment.Weapon;
@@ -176,8 +175,6 @@ public abstract class Hero extends Character {
 	}
 
 	public void usePotion(Scanner in) {
-		consumables.add(new large_potion());
-
 		System.out.println("What potion would you like to use?");
 		for (int i = 0; i < consumables.size(); i++) {
 			System.out.println("" + (i + 1) + ": " + consumables.get(i).getName());
@@ -195,6 +192,7 @@ public abstract class Hero extends Character {
 			}
 			s.addBonus(this);
 			displayStatus();
+			consumables.remove(choice);
 			System.out.println();
 		} else {
 			System.out.println("Selection cancelled.");

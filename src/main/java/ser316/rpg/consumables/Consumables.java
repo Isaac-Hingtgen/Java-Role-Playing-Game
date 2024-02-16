@@ -1,7 +1,6 @@
 package main.java.ser316.rpg.consumables;
 
 import main.java.ser316.rpg.Items;
-import main.java.ser316.rpg.characters.heroes.Hero;
 
 public abstract class Consumables extends Items {
 	private static final int NUMBER_OF_ITEMS = 7;
@@ -18,19 +17,48 @@ public abstract class Consumables extends Items {
 				return new large_potion();
 			case 3:
 				return new mana_potion();
-			case 4:
-				return new potion_of_swiftness();
-			case 5:
-				return new potion_of_strength();
-			case 6:
-				return new potion_of_thick_skin();
+			case 4, 5, 6:
+				return DurationBasedConsumable.getConsumable(num);
 			default:
 				return null;
 		}
 	}
+}
 
+class large_potion extends Consumables {
+	public large_potion() {
+		int bonusAmount = 60;
+		description = String.format("Heals for %d health.", bonusAmount);
+		healthBonus = bonusAmount;
+		cost = 100;
+	}
+}
 
+class mana_potion extends Consumables {
+	public mana_potion() {
+		int bonusAmount = 30;
+		description = String.format("Grants %d mana.", bonusAmount);
+		manaBonus = bonusAmount;
+		cost = 50;
+	}
+}
 
+class medium_potion extends Consumables {
+	public medium_potion() {
+		int bonusAmount = 35;
+		description = String.format("Heals for %d health.", bonusAmount);
+		healthBonus = bonusAmount;
+		cost = 60;
+	}
+}
+
+class small_potion extends Consumables {
+	public small_potion() {
+		int bonusAmount = 15;
+		description = String.format("Heals for %d health.", bonusAmount);
+		healthBonus = bonusAmount;
+		cost = 30;
+	}
 }
 
 

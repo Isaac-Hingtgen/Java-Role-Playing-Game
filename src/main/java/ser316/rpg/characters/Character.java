@@ -149,5 +149,15 @@ public abstract class Character {
 	public void addEvasionBonus(int evasionBonus) {
 		this.evasionBonus += evasionBonus;
 	}
+
+	public int getCurHealth() {
+		return curHealth;
+	}
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+	public int getMaxMana() {
+		return maxMana;
+	}
 }
 

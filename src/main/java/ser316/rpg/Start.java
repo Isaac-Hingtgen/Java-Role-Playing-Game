@@ -29,7 +29,7 @@ public class Start {
         do {
             System.out.println("Currently on floor " + curFloor + ".\n");
 
-            System.out.println("What would you like to do? (s)hop, (c)haracter stats, (f)ight, (q)uit, check (e)quipment");
+            System.out.println("What would you like to do? (s)hop, (c)haracter stats, (f)ight, check (e)quipment, (q)uit");
             in = input.nextLine().toLowerCase();
             if (in.equals("s")) {
                 shop.goToShop(curFloor);
@@ -48,6 +48,13 @@ public class Start {
                     System.out.println("You have died.");
                     curFloor = 1;
                     myHero.removeGold((int) Math.ceil(0.25 * myHero.getGold()));
+                }
+
+                if (myHero.getCurHealth() < 0.15 * myHero.getMaxHealth()) {
+                    System.out.println("You are gravely wounded and returned to the top floor to rest.");
+                    myHero.addMana(myHero.getMaxMana());
+                    myHero.addHealth(myHero.getMaxHealth());
+                    myHero.displayStatus();
                 }
 
                 myHero.usePassive();
