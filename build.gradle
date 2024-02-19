@@ -43,6 +43,10 @@ compileJava.options.encoding = 'UTF-8'
    showViolations = false
  }
 
+run {
+    standardInput = System.in
+}
+
 tasks.withType(Checkstyle) {
 
     reports {
