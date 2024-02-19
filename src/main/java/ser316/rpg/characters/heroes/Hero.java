@@ -21,7 +21,8 @@ public abstract class Hero extends Character {
 	public static final int OGRE = 0;
 	public static final int ELF = 1;
 	public static final int DARK_ELF = 2;
-	public static final int MAX_NUM_CONSUMABLES = 3;
+	public static final int MAX_NUM_POTIONS = 3;
+
 
 	protected ArrayList<Consumables> consumables = new ArrayList<>();
 	protected ArrayList<DurationBasedConsumable> consumablesInEffect = new ArrayList<>();
@@ -30,7 +31,7 @@ public abstract class Hero extends Character {
 	protected Helmets helmet = null;
 	protected Jewelry jewelry = null;
 	protected Weapon weapon = null;
-	protected Affinity _affinity;
+	protected Affinity _affinity = null;
 
 	protected int experience;
 	protected int gold;
@@ -51,7 +52,7 @@ public abstract class Hero extends Character {
 			return;
 		}
 
-		setAffinityBonuses();
+		_affinity.addAffinityBonuses(this);
 
 		System.out.println("Using " + _affinity.SKILL + "!");
 
@@ -62,23 +63,21 @@ public abstract class Hero extends Character {
 			attack();
 		}
 		specialAttackUsed = true;
-		specialAttackUsedLastTurn = true;
 	}
 	public void setAffinity(int affinity) {
 		_affinity = AffinityFactory.getAffinity(affinity);
 	}
-	public void setAffinityBonuses() {
-		this.attack += _affinity.getAttackBonus();
-		this.defence += _affinity.getDefenceBonus();
-		this.evasion += _affinity.getEvasionBonus();
-		this.curHealth += _affinity.getHealthBonus();
-		if(curHealth > maxHealth) curHealth = maxHealth;
-		this.curMana += _affinity.getManaBonus();
+
+	public void setAscendedAffinity(int affinity) {
+		if(_affinity != null)
+			_affinity = AffinityFactory.getAffinity(affinity, _affinity);
+		else
+			_affinity = AffinityFactory.getAffinity(affinity);
 	}
+
 	public void beginFight() throws Exception {
 		if(_opponent == null) throw new Exception("Who are you fighting?");
 		specialAttackUsed = false;
-		specialAttackUsedLastTurn = false;
 	}
 
 	public void resolveBonuses(Seasons curSeason) {
@@ -165,8 +164,8 @@ public abstract class Hero extends Character {
 		else System.out.println("None");
 	}
 
-	public int getNumberOfConsumables() {
-		return consumables.size();
+	public boolean hasInventorySpace() {
+		return consumables.size() < MAX_NUM_POTIONS;
 	}
 
 	public void removeGold(int gold) {
@@ -197,5 +196,13 @@ public abstract class Hero extends Character {
 		} else {
 			System.out.println("Selection cancelled.");
 		}
+	}
+
+	public Affinity getAffinity() {
+		return _affinity;
+	}
+
+	public int getExperience() {
+		return experience;
 	}
 }

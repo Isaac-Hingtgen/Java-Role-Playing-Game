@@ -49,8 +49,7 @@ tasks.withType(Checkstyle) {
         html.enabled = true
         xml.enabled = false
     }
-    // include '**/*.java'
-    include '**/ui/App.java'
+    include '**/*.java'
 }
 
 checkstyle {

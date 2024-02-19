@@ -17,10 +17,10 @@ public abstract class Enemy extends Character {
 
 	public void setLevel(int curFloor) {
 		level = curFloor;
-		maxHealth += (int) Math.round(level * Math.random());
-		evasion += (int) Math.round(level * Math.random());
-		defence += (int) Math.round(level * Math.random());
-		attack += (int) Math.round(level * Math.random());
+		maxHealth += (int) Math.round(level * (Math.random() * 0.5 + 0.75));
+		evasion += (int) Math.round(level * (Math.random() * 0.5 + 0.75));
+		defence += (int) Math.round(level * (Math.random() * 0.5 + 0.75));
+		attack += (int) Math.round(level * (Math.random() * 0.5 + 0.75));
 	}
 
 	public void setType(int type) {

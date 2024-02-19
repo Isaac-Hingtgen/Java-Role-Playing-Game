@@ -3,11 +3,10 @@ package main.java.ser316.rpg.consumables;
 import main.java.ser316.rpg.Items;
 
 public abstract class Consumables extends Items {
-	private static final int NUMBER_OF_ITEMS = 7;
-	public static final int MAX_POTIONS = 3;
+	private static final int NUMBER_OF_ITEMS = 4;
 
 	public static Consumables getRandomConsumable() {
-		int num = (int) (Math.random() * NUMBER_OF_ITEMS);
+		int num = (int) (Math.random() * (NUMBER_OF_ITEMS + DurationBasedConsumable.NUMBER_OF_ITEMS));
 		switch (num) {
 			case 0:
 				return new small_potion();

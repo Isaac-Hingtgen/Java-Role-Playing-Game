@@ -1,10 +1,15 @@
 package main.java.ser316.rpg.characters.affinities;
 
+import main.java.ser316.rpg.characters.heroes.Hero;
+
 public abstract class Affinity {
 	public String SKILL;
 	public static final int ASSASSIN = 0;
 	public static final int WARLOCK = 1;
 	public static final int WARRIOR = 2;
+
+
+
 	protected int manaBonus = 0;
 	protected int healthBonus = 0;
 	protected int attackBonus = 0;
@@ -27,8 +32,16 @@ public abstract class Affinity {
 		return evasionBonus;
 	}
 
+	public void addAffinityBonuses(Hero hero) {
+		hero.addDefenceBonus(this.defenceBonus);
+		hero.addAttackBonus(this.attackBonus);
+		hero.addEvasionBonus(this.evasionBonus);
+		hero.addHealth(this.healthBonus);
+		hero.addMana(this.manaBonus);
+	}
+
 	@Override
 	public String toString() {
-		return this.getClass().getName();
+		return this.getClass().getSimpleName();
 	}
 }

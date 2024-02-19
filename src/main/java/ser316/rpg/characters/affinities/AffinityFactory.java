@@ -13,4 +13,17 @@ public class AffinityFactory {
 				return null;
 		}
 	}
+
+	public static Affinity getAffinity(int type, Affinity prevAffinity) {
+		switch (type) {
+			case AscendedAffinity.PHANTOM:
+				return new Phantom(prevAffinity);
+			case AscendedAffinity.BERSERKER:
+				return new Warlock();
+			case AscendedAffinity.SAGE:
+				return new Warrior();
+			default:
+				return null;
+		}
+	}
 }

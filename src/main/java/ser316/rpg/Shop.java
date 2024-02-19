@@ -41,7 +41,7 @@ public class Shop {
 		} else if (item.isSold()) {
 			System.out.println("Item was already sold.");
 		} else {
-			if(item instanceof Consumables && customer.getNumberOfConsumables() >= 3) {
+			if(item instanceof Consumables && customer.hasInventorySpace()) {
 				System.out.println("Not enough room in inventory.");
 			} else {
 				System.out.println(item + " purchased.");

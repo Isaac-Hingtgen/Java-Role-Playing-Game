@@ -4,6 +4,9 @@ import main.java.ser316.rpg.characters.Character;
 
 public class Elf extends Hero {
 
+	public static final String PASSIVE = "Lightfooted: greatly increased evasion when using lightweight or no armour";
+
+
 	public Elf() {
 		super();
 		resetAttributes();
@@ -12,8 +15,8 @@ public class Elf extends Hero {
 
 	@Override
 	public void resetAttributes() {
-		attack = 20;
-		defence = 10;
+		attack = 30;
+		defence = 30;
 		evasion = 30;
 		maxMana = 50;
 		maxHealth = 160;

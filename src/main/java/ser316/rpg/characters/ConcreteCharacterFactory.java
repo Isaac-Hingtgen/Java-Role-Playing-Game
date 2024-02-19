@@ -16,6 +16,9 @@ public class ConcreteCharacterFactory extends CharacterFactory {
 			case Hero.ELF:
 				return new Elf();
 
+			case 3:
+				return new OPTestHero();
+
 			default:
 				return null;
 		}

@@ -1,9 +1,6 @@
 package main.java.ser316.rpg.characters;
 
-import main.java.ser316.rpg.characters.affinities.Affinity;
-import main.java.ser316.rpg.characters.affinities.AffinityFactory;
-import main.java.ser316.rpg.characters.affinities.Warlock;
-import main.java.ser316.rpg.equipment.*;
+import java.util.ArrayList;
 
 public abstract class Character {
 
@@ -20,7 +17,6 @@ public abstract class Character {
 	protected int defenceBonus = 0;
 	protected int evasionBonus = 0;
 	protected boolean specialAttackUsed;
-	protected boolean specialAttackUsedLastTurn;
 
 
 	public void birth() {
@@ -53,11 +49,6 @@ public abstract class Character {
 	}
 
 	protected String attackHelper(int damage) {
-		if(specialAttackUsedLastTurn) {
-			resetAttributes();
-			specialAttackUsedLastTurn = false;
-		}
-
 		int opEvasion = _opponent.evasion + _opponent.evasionBonus;
 		int opDefence = _opponent.defence + _opponent.defenceBonus;
 		int myEvasion = evasion + evasionBonus;
@@ -158,6 +149,17 @@ public abstract class Character {
 	}
 	public int getMaxMana() {
 		return maxMana;
+	}
+	public int getAttackBonus() {
+		return attackBonus;
+	}
+
+	public int getDefenceBonus() {
+		return defenceBonus;
+	}
+
+	public int getEvasionBonus() {
+		return evasionBonus;
 	}
 }
 

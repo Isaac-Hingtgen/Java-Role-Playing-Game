@@ -3,6 +3,8 @@ package main.java.ser316.rpg.consumables;
 public abstract class DurationBasedConsumable extends Consumables {
 	protected int duration = 3;
 
+	public static final int NUMBER_OF_ITEMS = 3;
+
 	public static Consumables getConsumable(int num) {
 		switch (num) {
 			case 4:

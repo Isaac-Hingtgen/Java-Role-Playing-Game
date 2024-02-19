@@ -3,6 +3,9 @@ package main.java.ser316.rpg.characters.heroes;
 import main.java.ser316.rpg.characters.Character;
 
 public class DarkElf extends Hero {
+	private static int bonusMana = 10;
+	public static final String PASSIVE = "Blessing of darkness: generate " + bonusMana + " mana at the end of each floor";
+
 	public DarkElf() {
 		super();
 		resetAttributes();
@@ -19,7 +22,7 @@ public class DarkElf extends Hero {
 	}
 
 	public void usePassive() {
-		System.out.println("Blessing of darkness grants 20 mana.");
-		addMana(20);
+		System.out.printf("Blessing of darkness grants %d mana.\n", bonusMana);
+		addMana(bonusMana);
 	}
 }
