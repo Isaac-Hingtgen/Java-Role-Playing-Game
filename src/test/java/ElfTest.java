@@ -10,21 +10,21 @@ import static org.junit.Assert.*;
 
 public class ElfTest {
 
-	@Test
-	public void usePassive() {
-		Elf elf = new Elf();
-		elf.usePassive();
+    @Test
+    public void usePassive() {
+        Elf elf = new Elf();
+        elf.usePassive();
 
-		assertEquals(45, elf.getEvasionBonus());
+        assertEquals(45, elf.getEvasionBonus());
 
-		elf.resetBonuses();
-		elf.equip(Chest.getChestArmour(50));
-		elf.equip(Boots.getBoots(50));
-		elf.equip(Helmets.getHelmets(50));
-		elf.equip(Weapon.getWeapon(30));
-		elf.equip(Jewelry.getJewelry(50));
-		elf.usePassive();
+        elf.resetBonuses();
+        elf.equip(Chest.getChestArmour(50));
+        elf.equip(Boots.getBoots(50));
+        elf.equip(Helmets.getHelmets(50));
+        elf.equip(Weapon.getWeapon(30));
+        elf.equip(Jewelry.getJewelry(50));
+        elf.usePassive();
 
-		assertEquals(45 - 27, elf.getEvasionBonus());
-	}
+        assertEquals(45 - 27, elf.getEvasionBonus());
+    }
 }

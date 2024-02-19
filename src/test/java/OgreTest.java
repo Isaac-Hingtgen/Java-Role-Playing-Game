@@ -7,12 +7,12 @@ import static org.junit.Assert.*;
 
 public class OgreTest {
 
-	@Test
-	public void usePassive() {
-		Ogre ogre = new Ogre();
-		ogre.resetAttributes();
-		ogre.removeHealth(20);
-		ogre.usePassive();
-		assertEquals(ogre.getMaxHealth() - 10, ogre.getCurHealth());
-	}
+    @Test
+    public void usePassive() {
+        Ogre ogre = new Ogre();
+        ogre.resetAttributes();
+        ogre.removeHealth(20);
+        ogre.usePassive();
+        assertEquals(ogre.getMaxHealth() - 10, ogre.getCurHealth());
+    }
 }

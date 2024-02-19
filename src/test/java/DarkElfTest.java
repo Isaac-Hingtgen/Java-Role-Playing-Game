@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class DarkElfTest {
 
-	@Test
-	public void usePassive() {
-	}
+    @Test
+    public void usePassive() {
+    }
 }
