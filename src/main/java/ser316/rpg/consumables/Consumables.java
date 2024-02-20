@@ -28,6 +28,14 @@ public abstract class Consumables extends Items {
     public String getDescription() {
         return description;
     }
+
+    public String getBonusesDescription() {
+        return ((evasionBonus == 0) ? "" : String.format(" (Evasion: %+d) ", evasionBonus))
+            + ((attackBonus == 0) ? "" : String.format(" (Attack: %+d) ", attackBonus))
+            + ((defenceBonus == 0) ? "" : String.format(" (Defence: %+d) ", defenceBonus))
+            + ((healthBonus == 0) ? "" : String.format(" (Heath gain per floor: %+d) ", healthBonus))
+            + ((manaBonus == 0) ? "" : String.format(" (Mana gain per floor: %+d) ", manaBonus));
+    }
 }
 
 class large_potion extends Consumables {

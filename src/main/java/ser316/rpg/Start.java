@@ -11,6 +11,7 @@ import main.java.ser316.rpg.characters.heroes.*;
 
 public class Start {
     public static boolean demo = false;
+    public static int curFloor = 1;
     public static void main(String [] argv) {
         System.out.println("Descend the tower!\n");
 
@@ -62,7 +63,6 @@ public class Start {
         System.out.println("Welcome " + myHero.getAffinity() + " " + myHero + "!\n");
 
         Shop shop = new Shop(input, myHero);
-        int curFloor = 1;
         Seasons curSeason = Seasons.getCurSeason(curFloor);
         String in = null;
         String [] demoOptions = { "c", "e", "s", "c", "e", "i", "f" };

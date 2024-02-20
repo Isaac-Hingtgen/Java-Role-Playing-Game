@@ -1,5 +1,6 @@
 package main.java.ser316.rpg.characters.heroes;
 
+import main.java.ser316.rpg.consumables.DurationBasedConsumable;
 import main.java.ser316.rpg.equipment.Weapon;
 
 public class OpTestHero extends Hero {
@@ -7,6 +8,7 @@ public class OpTestHero extends Hero {
         resetAttributes();
         this.birth();
         weapon = Weapon.getWeapon(50);
+        equip(DurationBasedConsumable.getConsumable(4));
     }
 
     @Override

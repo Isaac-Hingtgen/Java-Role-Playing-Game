@@ -167,39 +167,50 @@ public abstract class Hero extends Character {
     }
 
     public void displayEquipment() {
-        System.out.print("Helmet: ");
+        System.out.println("Equipment: ");
+        System.out.print("\t" + "Helmet: ");
         if (helmet != null) {
             System.out.println(helmet.toString());
         } else {
             System.out.println("None");
         }
 
-        System.out.print("Chest: ");
+        System.out.print("\t" + "Chest: ");
         if (chest != null) {
             System.out.println(chest.toString());
         } else {
             System.out.println("None");
         }
 
-        System.out.print("Jewelry: ");
+        System.out.print("\t" + "Jewelry: ");
         if (jewelry != null) {
             System.out.println(jewelry.toString());
         } else {
             System.out.println("None");
         }
 
-        System.out.print("Weapon: ");
+        System.out.print("\t" + "Weapon: ");
         if (weapon != null) {
             System.out.println(weapon.toString());
         } else {
             System.out.println("None");
         }
 
-        System.out.print("Boots: ");
+        System.out.print("\t" + "Boots: ");
         if (boots != null) {
             System.out.println(boots.toString());
         } else {
             System.out.println("None");
+        }
+
+        System.out.println("Potions: ");
+        for (Consumables c : consumables) {
+            System.out.println("\t" + c.getName() + " : " + c.getDescription());
+        }
+
+        System.out.println("Active potions: ");
+        for (Consumables c : consumablesInEffect) {
+            System.out.println("\t" + c.getName() + " : " + c.getBonusesDescription());
         }
     }
 
@@ -222,7 +233,10 @@ public abstract class Hero extends Character {
         System.out.println("0: Cancel.");
         int choice;
         if (Start.demo) {
-            choice = (int) (Math.random() * 3) + 1;
+            choice = (int) (Math.random() * 2) + 2;
+            if (Start.curFloor % 10 >= 8) {
+                choice = 1;
+            }
             Start.displayInput(String.valueOf(choice));
         } else {
             choice = in.nextInt();
