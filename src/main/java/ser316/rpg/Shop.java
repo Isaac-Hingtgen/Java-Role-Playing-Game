@@ -24,7 +24,7 @@ public class Shop {
         getNewInventory();
         System.out.println("Welcome to the shop:\n");
 
-        int items = (int) (Math.random() * 2);
+        int items = (int) (Math.random() * 2) + 1;
         int ans;
         do {
             displayInventory();
