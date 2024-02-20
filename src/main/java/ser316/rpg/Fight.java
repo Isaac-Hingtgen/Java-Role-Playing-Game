@@ -49,9 +49,9 @@ public class Fight {
             try {
                 int attack;
                 if (Start.demo) {
-                    attack = (int) (Math.random() * 3);
-                    if (!hero.hasInventorySpace()) {
-                        attack = 4; // only use potion if inventory full
+                    attack = (int) (Math.random() * 3) + 1;
+                    if (Start.curFloor % 10 == 0 && !hero.hasInventorySpace()) {
+                        attack = 4; // use potion during boss fight
                     } else if (attack == 2 && hero.getCurMana() < 15) {
                         attack = 3;
                     }

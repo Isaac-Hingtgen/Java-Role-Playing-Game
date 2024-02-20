@@ -107,13 +107,19 @@ public abstract class Hero extends Character {
         for (int i = 0; i < consumablesInEffect.size(); i++) {
             DurationBasedConsumable c = consumablesInEffect.get(i);
             c.addBonus(this);
+        }
+        if (curSeason != null) {
+            curSeason.addStatModifiers(this);
+        }
+    }
+
+    public void checkPotions() {
+        for (int i = 0; i < consumablesInEffect.size(); i++) {
+            DurationBasedConsumable c = consumablesInEffect.get(i);
             c.decrementDuration();
             if (c.isExpired()) {
                 consumablesInEffect.remove(i);
             }
-        }
-        if (curSeason != null) {
-            curSeason.addStatModifiers(this);
         }
     }
 
@@ -233,8 +239,8 @@ public abstract class Hero extends Character {
         System.out.println("0: Cancel.");
         int choice;
         if (Start.demo) {
-            choice = (int) (Math.random() * 2) + 2;
-            if (Start.curFloor % 10 >= 8) {
+            choice = (int) (Math.random() * 3) + 1;
+            if (Start.curFloor <= 10) {
                 choice = 1;
             }
             Start.displayInput(String.valueOf(choice));
@@ -246,7 +252,7 @@ public abstract class Hero extends Character {
 
         if (choice >= 0 && choice < consumables.size()) {
             Consumables s = consumables.get(choice);
-            System.out.println(s.toString() + " was used.");
+            System.out.println(s.getName() + " was used.");
             if (s instanceof DurationBasedConsumable) {
                 consumablesInEffect.add((DurationBasedConsumable) s);
             }

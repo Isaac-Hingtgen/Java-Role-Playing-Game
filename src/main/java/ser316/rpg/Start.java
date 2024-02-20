@@ -139,6 +139,7 @@ public class Start {
                 }
                 curSeason = Seasons.getCurSeason(curFloor);
                 myHero.addMana(5);
+                myHero.checkPotions();
                 myHero.usePassive();
             } else if (in.equals("d")) {
                 demo = true;
