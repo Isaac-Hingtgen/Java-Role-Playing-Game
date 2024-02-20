@@ -12,6 +12,6 @@ public class Sage extends AscendedAffinity {
         super.addAffinityBonuses(hero);
         hero.addDefenceBonus(60);
         hero.addHealth(8);
-        SKILL = "RECOVERY SHIELD";
+        skill = "RECOVERY SHIELD";
     }
 }

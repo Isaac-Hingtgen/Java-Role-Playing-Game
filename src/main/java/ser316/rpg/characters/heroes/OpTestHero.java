@@ -2,8 +2,8 @@ package main.java.ser316.rpg.characters.heroes;
 
 import main.java.ser316.rpg.equipment.Weapon;
 
-public class OPTestHero extends Hero {
-    public OPTestHero() {
+public class OpTestHero extends Hero {
+    public OpTestHero() {
         resetAttributes();
         this.birth();
         weapon = Weapon.getWeapon(50);
@@ -13,7 +13,7 @@ public class OPTestHero extends Hero {
     public void resetAttributes() {
         attack = 200;
         defence = 20;
-        evasion = 10;
+        evasion = 1000;
         maxMana = 1000;
         maxHealth = 1000;
         gold = 1000;

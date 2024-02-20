@@ -2,7 +2,7 @@ package main.java.ser316.rpg;
 
 import main.java.ser316.rpg.characters.heroes.Hero;
 import main.java.ser316.rpg.consumables.Consumables;
-import main.java.ser316.rpg.equipment.*;
+import main.java.ser316.rpg.equipment.Equipment;
 
 // items, consumables, and equipment use State design pattern
 
@@ -21,7 +21,7 @@ public abstract class Items {
 
 
     public static Items getRandomItem(int level) {
-        if(Math.random() > 0.3) {
+        if (Math.random() > 0.3) {
             return Consumables.getRandomConsumable();
         } else {
             return Equipment.getRandomEquipment(level);

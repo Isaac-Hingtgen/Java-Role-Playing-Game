@@ -3,11 +3,17 @@ package main.java.ser316.rpg.equipment;
 public abstract class Weapon extends Equipment {
     public static Weapon getWeapon(int level) {
         Weapon weapon;
-        if (level < 31) weapon = new excalibur();
-        else if (level < 23) weapon = new spiked_shield();
-        else if (level < 15) weapon = new broad_sword();
-        else if (level < 8) weapon = new big_stick();
-        else weapon = new dragon_slayer();
+        if (level < 8) {
+            weapon = new big_stick();
+        } else if (level < 15) {
+            weapon = new broad_sword();
+        } else if (level < 23) {
+            weapon = new spiked_shield();
+        } else if (level < 31) {
+            weapon = new excalibur();
+        } else {
+            weapon = new dragon_slayer();
+        }
         return weapon;
     }
 }

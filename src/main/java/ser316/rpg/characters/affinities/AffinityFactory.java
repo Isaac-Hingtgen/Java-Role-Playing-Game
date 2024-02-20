@@ -19,9 +19,9 @@ public class AffinityFactory {
             case AscendedAffinity.PHANTOM:
                 return new Phantom(prevAffinity);
             case AscendedAffinity.BERSERKER:
-                return new Warlock();
+                return new Berserker(prevAffinity);
             case AscendedAffinity.SAGE:
-                return new Warrior();
+                return new Sage(prevAffinity);
             default:
                 return null;
         }

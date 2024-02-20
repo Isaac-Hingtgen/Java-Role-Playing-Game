@@ -3,9 +3,13 @@ package main.java.ser316.rpg.equipment;
 public class Chest extends Equipment {
 
     public static Chest getChestArmour(int level) {
-        if (level < 9) return new leather_jerkin();
-        else if (level < 21) return new chain_mail();
-        else return new plate_armour_chest();
+        if (level < 9) {
+            return new leather_jerkin();
+        } else if (level < 21) {
+            return new chain_mail();
+        } else {
+            return new plate_armour_chest();
+        }
     }
 }
 

@@ -3,8 +3,11 @@ package main.java.ser316.rpg.equipment;
 public class Helmets extends Equipment {
 
     public static Helmets getHelmets(int level) {
-        if(level < 15) return new helmet_of_illumination();
-        else return new metal_pot();
+        if(level < 15) {
+            return new helmet_of_illumination();
+        } else {
+            return new metal_pot();
+        }
     }
 }
 

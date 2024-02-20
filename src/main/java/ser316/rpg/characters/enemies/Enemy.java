@@ -12,7 +12,9 @@ public abstract class Enemy extends Character {
 
     @Override
     public void displayStatus() {
-        if (curHealth < (0.3 * maxHealth)) System.out.println(this + " looks weakened.");
+        if (curHealth < (0.3 * maxHealth)) {
+            System.out.println(this + " looks weakened.");
+        }
     }
 
     public void setLevel(int curFloor) {

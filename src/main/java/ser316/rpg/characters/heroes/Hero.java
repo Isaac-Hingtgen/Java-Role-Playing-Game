@@ -1,20 +1,20 @@
 package main.java.ser316.rpg.characters.heroes;
 
-import main.java.ser316.rpg.Seasons;
-import main.java.ser316.rpg.consumables.Consumables;
-import main.java.ser316.rpg.consumables.DurationBasedConsumable;
-import main.java.ser316.rpg.Items;
-import main.java.ser316.rpg.characters.Character;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import main.java.ser316.rpg.Start;
 import main.java.ser316.rpg.characters.affinities.Affinity;
 import main.java.ser316.rpg.characters.affinities.AffinityFactory;
 import main.java.ser316.rpg.characters.affinities.Warlock;
+import main.java.ser316.rpg.characters.Character;
 import main.java.ser316.rpg.characters.enemies.Enemy;
+import main.java.ser316.rpg.consumables.Consumables;
+import main.java.ser316.rpg.consumables.DurationBasedConsumable;
 import main.java.ser316.rpg.equipment.*;
-import main.java.ser316.rpg.equipment.Boots;
-import main.java.ser316.rpg.equipment.Weapon;
+import main.java.ser316.rpg.Items;
+import main.java.ser316.rpg.Seasons;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public abstract class Hero extends Character {
 
@@ -22,7 +22,7 @@ public abstract class Hero extends Character {
     public static final int ELF = 1;
     public static final int DARK_ELF = 2;
     public static final int MAX_NUM_POTIONS = 3;
-
+    private boolean isAscended;
 
     protected ArrayList<Consumables> consumables = new ArrayList<>();
     protected ArrayList<DurationBasedConsumable> consumablesInEffect = new ArrayList<>();
@@ -31,7 +31,7 @@ public abstract class Hero extends Character {
     protected Helmets helmet = null;
     protected Jewelry jewelry = null;
     protected Weapon weapon = null;
-    protected Affinity _affinity = null;
+    protected Affinity affinity = null;
 
     protected int experience;
     protected int gold;
@@ -42,60 +42,77 @@ public abstract class Hero extends Character {
     }
 
     public void setAffinity(Affinity affinity) {
-        this._affinity = affinity;
+        this.affinity = affinity;
     }
 
     public void specialAttack() {
-        if(specialAttackUsed) {
+        if (specialAttackUsed) {
             System.out.println("Special attack already used. Using physical attack instead.");
             attack();
             return;
         }
 
-        _affinity.addAffinityBonuses(this);
+        affinity.addAffinityBonuses(this);
 
-        System.out.println("Using " + _affinity.SKILL + "!");
+        System.out.println("Using " + affinity.getName() + "!");
 
-        if(_affinity instanceof Warlock) {
+        if (affinity instanceof Warlock) {
             magicAttack(curMana);
-            System.out.println(this + " absorbed " + _affinity.getHealthBonus() + " life with the attack.");
+            System.out.println(this + " absorbed " + affinity.getHealthBonus() + " life with the attack.");
         } else {
             attack();
         }
         specialAttackUsed = true;
     }
+
     public void setAffinity(int affinity) {
-        _affinity = AffinityFactory.getAffinity(affinity);
+        this.affinity = AffinityFactory.getAffinity(affinity);
     }
 
     public void setAscendedAffinity(int affinity) {
-        if(_affinity != null)
-            _affinity = AffinityFactory.getAffinity(affinity, _affinity);
-        else
-            _affinity = AffinityFactory.getAffinity(affinity);
+        if (this.affinity != null) {
+            this.affinity = AffinityFactory.getAffinity(affinity, this.affinity);
+            this.isAscended = true;
+        } else {
+            this.affinity = AffinityFactory.getAffinity(affinity);
+        }
     }
 
     public void beginFight() throws Exception {
-        if(_opponent == null) throw new Exception("Who are you fighting?");
+        if (opponent == null) {
+            throw new Exception("Who are you fighting?");
+        }
         specialAttackUsed = false;
     }
 
     public void resolveBonuses(Seasons curSeason) {
         resetBonuses();
-        if(chest != null) chest.addBonus(this);
-        if(boots != null) boots.addBonus(this);
-        if(jewelry != null) jewelry.addBonus(this);
-        if(helmet != null) helmet.addBonus(this);
-        if(weapon != null) weapon.addBonus(this);
-        for(int i = 0; i < consumablesInEffect.size(); i++) {
+        if (chest != null) {
+            chest.addBonus(this);
+        }
+        if (boots != null) {
+            boots.addBonus(this);
+        }
+        if (jewelry != null) {
+            jewelry.addBonus(this);
+        }
+        if (helmet != null) {
+            helmet.addBonus(this);
+        }
+        if (weapon != null) {
+            weapon.addBonus(this);
+        }
+        for (int i = 0; i < consumablesInEffect.size(); i++) {
             DurationBasedConsumable c = consumablesInEffect.get(i);
             c.addBonus(this);
             c.decrementDuration();
-            if(c.isExpired()) {
+            if (c.isExpired()) {
                 consumablesInEffect.remove(i);
             }
         }
-        curSeason.addStatModifiers(this);
+        if (curSeason != null) {
+            curSeason.addStatModifiers(this);
+        }
     }
 
     public void displayStats(Seasons season) {
@@ -113,13 +130,14 @@ public abstract class Hero extends Character {
     }
 
     public void winsFight() {
-        Enemy enemy = (Enemy) _opponent;
+        Enemy enemy = (Enemy) opponent;
         int experienceGained = (int)((Math.random() * 0.5 + 0.75) * (2 * enemy.level + enemy.type * enemy.type * 5));
         int goldGained = (int)((Math.random() * 0.5 + 0.75) * (2 * enemy.level + enemy.level * 6 + enemy.type * enemy.type * 9));
-        System.out.printf("You have won the fight! %d gold and %d XP gained.\n", goldGained, experienceGained);
+        opponent = null;
+        System.out.printf("You have won the fight! %d gold and %d XP gained.%n", goldGained, experienceGained);
         gold += goldGained;
         experience += experienceGained;
-        System.out.printf("You now have %d gold and %d XP.\n", gold, experience);
+        System.out.printf("You now have %d gold and %d XP.%n", gold, experience);
     }
 
     public abstract void usePassive();
@@ -148,20 +166,39 @@ public abstract class Hero extends Character {
 
     public void displayEquipment() {
         System.out.print("Helmet: ");
-        if(helmet != null) System.out.println(helmet.toString());
-        else System.out.println("None");
+        if (helmet != null) {
+            System.out.println(helmet.toString());
+        } else {
+            System.out.println("None");
+        }
+
         System.out.print("Chest: ");
-        if(chest != null) System.out.println(chest.toString());
-        else System.out.println("None");
+        if (chest != null) {
+            System.out.println(chest.toString());
+        } else {
+            System.out.println("None");
+        }
+
         System.out.print("Jewelry: ");
-        if(jewelry != null) System.out.println(jewelry.toString());
-        else System.out.println("None");
+        if (jewelry != null) {
+            System.out.println(jewelry.toString());
+        } else {
+            System.out.println("None");
+        }
+
         System.out.print("Weapon: ");
-        if(weapon != null) System.out.println(weapon.toString());
-        else System.out.println("None");
+        if (weapon != null) {
+            System.out.println(weapon.toString());
+        } else {
+            System.out.println("None");
+        }
+
         System.out.print("Boots: ");
-        if(boots != null) System.out.println(boots.toString());
-        else System.out.println("None");
+        if (boots != null) {
+            System.out.println(boots.toString());
+        } else {
+            System.out.println("None");
+        }
     }
 
     public boolean hasInventorySpace() {
@@ -170,7 +207,9 @@ public abstract class Hero extends Character {
 
     public void removeGold(int gold) {
         this.gold -= gold;
-        if(this.gold < 0) this.gold = 0;
+        if (this.gold < 0) {
+            this.gold = 0;
+        }
     }
 
     public void usePotion(Scanner in) {
@@ -179,14 +218,20 @@ public abstract class Hero extends Character {
             System.out.println("" + (i + 1) + ": " + consumables.get(i).toString());
         }
         System.out.println("0: Cancel.");
-        int choice = in.nextInt();
+        int choice;
+        if (Start.demo) {
+            choice = (int) (Math.random() * 3) + 1;
+            Start.displayInput(String.valueOf(choice));
+        } else {
+            choice = in.nextInt();
+            in.nextLine();
+        }
         choice--;
-        in.nextLine();
 
-        if(choice >= 0 && choice < consumables.size()) {
+        if (choice >= 0 && choice < consumables.size()) {
             Consumables s = consumables.get(choice);
             System.out.println(s.toString() + " was used.");
-            if(s instanceof DurationBasedConsumable) {
+            if (s instanceof DurationBasedConsumable) {
                 consumablesInEffect.add((DurationBasedConsumable) s);
             }
             s.addBonus(this);
@@ -199,10 +244,18 @@ public abstract class Hero extends Character {
     }
 
     public Affinity getAffinity() {
-        return _affinity;
+        return affinity;
     }
 
     public int getExperience() {
         return experience;
+    }
+
+    public boolean canUseSpecial() {
+        return !specialAttackUsed;
+    }
+
+    public boolean isAscended() {
+        return isAscended;
     }
 }

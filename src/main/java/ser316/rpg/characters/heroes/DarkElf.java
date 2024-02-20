@@ -22,7 +22,7 @@ public class DarkElf extends Hero {
     }
 
     public void usePassive() {
-        System.out.printf("Blessing of darkness grants %d mana.\n", bonusMana);
+        System.out.printf("Blessing of darkness grants %d mana.%n", bonusMana);
         addMana(bonusMana);
     }
 }

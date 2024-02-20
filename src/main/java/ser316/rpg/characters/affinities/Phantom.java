@@ -12,6 +12,6 @@ public class Phantom extends AscendedAffinity {
         super.addAffinityBonuses(hero);
         hero.addEvasionBonus(30);
         hero.addAttackBonus(50);
-        SKILL = "SHADOW STRIKE";
+        skill = "SHADOW STRIKE";
     }
 }

@@ -11,6 +11,13 @@ public class Fight {
     private Hero hero = null;
     private Enemy enemy = null;
     private Seasons season = null;
+
+    /**
+     * Creates new fight.
+     * @param hero player's hero character
+     * @param enemy enemy character the hero will fight
+     * @param season current season the fight is occurring in
+     */
     public Fight(Hero hero, Enemy enemy, Seasons season) {
         this.hero = hero;
         this.enemy = enemy;
@@ -18,18 +25,21 @@ public class Fight {
         hero.setOpponent(enemy);
     }
 
+    /**
+     * initiates the fight.
+     * @param in Scanner object
+     */
     public void init(Scanner in) {
         hero.resolveBonuses(season);
         try {
             hero.beginFight();
             System.out.println(hero + " encountered a " + enemy + ".");
             System.out.println("Let the fight begin!\n");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        while(!hero.isDead() && !enemy.isDead()) {
+        while (!hero.isDead() && !enemy.isDead()) {
             System.out.println("Select your move:");
             System.out.println("\t1: Physical Attack");
             System.out.println("\t2: Magic Attack");
@@ -37,8 +47,20 @@ public class Fight {
             System.out.println("\t4: Use Potion");
 
             try {
-                int attack = in.nextInt();
-                in.nextLine();
+                int attack;
+                if (Start.demo) {
+                    attack = (int) (Math.random() * 3);
+                    if (!hero.hasInventorySpace()) {
+                        attack = 4; // only use potion if inventory full
+                    } else if (attack == 2 && hero.getCurMana() < 15) {
+                        attack = 3;
+                    }
+                    Start.displayInput(String.valueOf(attack));
+                } else {
+                    attack = in.nextInt();
+                    in.nextLine();
+                }
+
                 switch (attack) {
                     case 1: {
                         hero.attack();
@@ -46,7 +68,14 @@ public class Fight {
                     }
                     case 2: {
                         System.out.println("How much mana would you like to use? You currently have " + hero.getCurMana() + " available.");
-                        int manaUsage = in.nextInt();
+                        int manaUsage;
+                        if (Start.demo) {
+                            manaUsage = 15;
+                            Start.displayInput(String.valueOf(manaUsage));
+                        } else {
+                            manaUsage = in.nextInt();
+                            in.nextLine();
+                        }
                         hero.magicAttack(manaUsage);
                         break;
                     }
@@ -61,22 +90,27 @@ public class Fight {
                     default:
                         throw new InputMismatchException();
                 }
-            }
-            catch (InputMismatchException e) {
-                System.out.println("Failed to select a valid option. Your turn is forfeited.");
+            } catch (InputMismatchException e) {
+                System.out.println("Failed to select a valid option.");
+                continue;
             }
 
-            if(!enemy.isDead()) {
+            if (!enemy.isDead()) {
                 enemy.displayStatus();
-                if (enemy.getCurMana() != 0 && Math.random() > 0.80) enemy.magicAttack(enemy.getCurMana());
-                else enemy.attack();
+                if (enemy.getCurMana() != 0 && Math.random() > 0.80) {
+                    enemy.magicAttack(enemy.getCurMana());
+                } else {
+                    enemy.attack();
+                }
             } else {
                 hero.winsFight();
             }
 
             hero.displayStatus();
-            System.out.println("Press <ENTER> to continue.");
-            in.nextLine();
+            if (!Start.demo) {
+                System.out.println("Press <ENTER> to continue.");
+                in.nextLine();
+            }
         }
     }
 }

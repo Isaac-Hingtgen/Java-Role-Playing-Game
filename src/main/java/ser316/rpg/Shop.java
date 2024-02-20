@@ -1,12 +1,13 @@
 package main.java.ser316.rpg;
 
+import java.util.Scanner;
+
 import main.java.ser316.rpg.characters.heroes.Hero;
 import main.java.ser316.rpg.consumables.Consumables;
 
-import java.util.Scanner;
 
 public class Shop {
-    private final int NUM_OF_ITEMS = 5;
+    private static final int NUM_OF_ITEMS = 5;
 
     private int level = 1;
     private Items[] inventory = new Items[NUM_OF_ITEMS];
@@ -23,14 +24,24 @@ public class Shop {
         getNewInventory();
         System.out.println("Welcome to the shop:\n");
 
+        int items = (int) (Math.random() * 2);
         int ans;
         do {
             displayInventory();
             System.out.println();
             System.out.println("Would you like to buy anything? (1-5, 0 to leave)\t Gold: " + customer.getGold());
-            ans = in.nextInt();
-            in.nextLine(); // clear line
-            if(ans > 0 && ans < 6) makePurchase(ans);
+            if (Start.demo) {
+                // try to purchase 3 random items
+                ans = (items < 5) ? items : 0;
+                Start.displayInput(String.valueOf(ans));
+                items += (int) (Math.random() * 2) + 1;
+            } else {
+                ans = in.nextInt();
+                in.nextLine(); // clear line
+            }
+            if (ans > 0 && ans < 6) {
+                makePurchase(ans);
+            }
         } while (ans != 0);
     }
 
@@ -41,7 +52,7 @@ public class Shop {
         } else if (item.isSold()) {
             System.out.println("Item was already sold.");
         } else {
-            if(item instanceof Consumables && customer.hasInventorySpace()) {
+            if (item instanceof Consumables && !customer.hasInventorySpace()) {
                 System.out.println("Not enough room in inventory.");
             } else {
                 System.out.println(item + " purchased.");
@@ -64,7 +75,8 @@ public class Shop {
             if (inventory[i].isSold()) {
                 System.out.println("\t" + (i + 1) + ": Sold out.");
             } else {
-                System.out.println("\t" + (i + 1) + ": " + inventory[i].getName() + " : " + inventory[i].getCost() + " gold. " + inventory[i].getDescription());
+                System.out.println("\t" + (i + 1) + ": " + inventory[i].getName() + " : " + inventory[i].getCost()
+                    + " gold. " + inventory[i].getDescription());
             }
         }
     }

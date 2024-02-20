@@ -1,14 +1,13 @@
 package main.java.ser316.rpg.characters.heroes;
 
 
-import main.java.ser316.rpg.characters.Character;
-
 /**
- * passive: recover 10 health every floor
+ * passive: recover 10 health every floor.
  */
 public class Ogre extends Hero {
     private static int healthRecovered = 10;
     public static final String PASSIVE = "Rest: recover " + healthRecovered + " health at the end of each floor";
+
     public Ogre() {
         super();
         resetAttributes();

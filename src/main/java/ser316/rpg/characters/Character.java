@@ -1,10 +1,8 @@
 package main.java.ser316.rpg.characters;
 
-import java.util.ArrayList;
-
 public abstract class Character {
 
-    protected Character _opponent = null;
+    protected Character opponent = null;
     protected int maxHealth;
     protected int curHealth;
     protected int maxMana;
@@ -16,6 +14,7 @@ public abstract class Character {
     protected int attackBonus = 0;
     protected int defenceBonus = 0;
     protected int evasionBonus = 0;
+
     protected boolean specialAttackUsed;
 
 
@@ -26,12 +25,14 @@ public abstract class Character {
 
 
     public void setOpponent(Character opponent) {
-        _opponent = opponent;
-        if(opponent.getOpponent() == null) opponent.setOpponent(this);
+        this.opponent = opponent;
+        if (opponent != null && opponent.getOpponent() == null) {
+            opponent.setOpponent(this);
+        }
     }
 
     public Character getOpponent() {
-        return _opponent;
+        return opponent;
     }
 
     public void attack() {
@@ -49,8 +50,8 @@ public abstract class Character {
     }
 
     protected String attackHelper(int damage) {
-        int opEvasion = _opponent.evasion + _opponent.evasionBonus;
-        int opDefence = _opponent.defence + _opponent.defenceBonus;
+        int opEvasion = opponent.evasion + opponent.evasionBonus;
+        int opDefence = opponent.defence + opponent.defenceBonus;
         int myEvasion = evasion + evasionBonus;
         int myAttack = attack + attackBonus;
 
@@ -60,24 +61,26 @@ public abstract class Character {
         double criticalProbability = 2.0 * rand * (75 + (myEvasion - opEvasion)) / 100.0;
         double damageMultiplier = 1;
 
-        if(missProbability > 1) {
+        if (missProbability > 1) {
             return this + "'s attack missed!\n";
-        } else if(criticalProbability > 1) {
+        } else if (criticalProbability > 1) {
             response += this + " hit a critical strike!\n";
             damageMultiplier = 2;
         }
 
         damageMultiplier += (myAttack / 100.0 - opDefence / 100.0);
-        if(damageMultiplier < 0) damageMultiplier = 0;
+        if (damageMultiplier < 0) {
+            damageMultiplier = 0;
+        }
 
         damage = (int) Math.ceil(damage * damageMultiplier * (Math.random() / 2.0 + 0.75));
 
-        _opponent.removeHealth(damage);
+        opponent.removeHealth(damage);
 
-        response += this + " hit the " + _opponent + " for " + damage + " damage!\n";
+        response += this + " hit the " + opponent + " for " + damage + " damage!\n";
 
-        if(_opponent.isDead()) {
-            response += _opponent.toString() + " has been slayed!\n";
+        if (opponent.isDead()) {
+            response += opponent.toString() + " has been slayed!\n";
         }
 
         return response;
@@ -85,25 +88,24 @@ public abstract class Character {
 
     public abstract void resetAttributes();
 
-
     public int getCurMana() {
         return curMana;
     }
 
     public void magicAttack(int manaUsed) {
-        if(manaUsed <= 0)
+        if (manaUsed <= 0) {
             System.out.println(this + " attempts to some a great bolt of lightening to smite their enemy!!! ...but nothing happens.");
+        }
 
-        if(manaUsed > curMana) {
+        if (manaUsed > curMana) {
             removeHealth(10);
-            System.out.println("You attempted to use more mana than you had available, in the process you injured yourself, resulting in the lose of 10 health.");
+            System.out.println("You attempted to use more mana than you had available, "
+                + "in the process you injured yourself, resulting in the lose of 10 health.");
         } else {
             removeMana(manaUsed);
             System.out.println(this + " sent a molten fireball towards the opponent!\n" + attackHelper(manaUsed));
         }
     }
-
-
 
     public void displayStatus() {
         System.out.println("\tCurrent health: " + curHealth + "/" + maxHealth);
@@ -112,21 +114,30 @@ public abstract class Character {
 
     public void removeHealth(int health) {
         curHealth -= health;
-        if(curHealth < 0) curHealth = 0;
+        if (curHealth < 0) {
+            curHealth = 0;
+        }
     }
+
     public void addHealth(int health) {
         curHealth += health;
-        if(curHealth > maxHealth) curHealth = maxHealth;
+        if (curHealth > maxHealth) {
+            curHealth = maxHealth;
+        }
     }
 
     public void removeMana(int mana) {
         curMana -= mana;
-        if(curMana < 0) curMana = 0;
+        if (curMana < 0) {
+            curMana = 0;
+        }
     }
 
     public void addMana(int mana) {
         curMana += mana;
-        if(curMana > maxMana) curMana = maxMana;
+        if (curMana > maxMana) {
+            curMana = maxMana;
+        }
     }
 
     public void addDefenceBonus(int defenceBonus) {
@@ -144,12 +155,15 @@ public abstract class Character {
     public int getCurHealth() {
         return curHealth;
     }
+
     public int getMaxHealth() {
         return maxHealth;
     }
+
     public int getMaxMana() {
         return maxMana;
     }
+
     public int getAttackBonus() {
         return attackBonus;
     }

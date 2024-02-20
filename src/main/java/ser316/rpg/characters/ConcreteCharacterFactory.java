@@ -17,7 +17,7 @@ public class ConcreteCharacterFactory extends CharacterFactory {
                 return new Elf();
 
             case 3:
-                return new OPTestHero();
+                return new OpTestHero();
 
             default:
                 return null;
@@ -27,48 +27,57 @@ public class ConcreteCharacterFactory extends CharacterFactory {
     @Override
     public Enemy getRandomEnemy(int curFloor) {
         int enemyType = Enemy.SMALL;
-        if (curFloor % 5 == 0) enemyType = Enemy.MEDIUM;
-        if (curFloor % 10 == 0) enemyType = Enemy.BOSS;
+        if (curFloor % 5 == 0) {
+            enemyType = Enemy.MEDIUM;
+        }
+        if (curFloor % 10 == 0) {
+            enemyType = Enemy.BOSS;
+        }
 
         int randomNum = (int) (Math.random() * 3);
 
         Enemy enemy = null;
         switch (enemyType) {
-            case Enemy.BOSS: {
-                if(randomNum == 0)
+            case Enemy.BOSS:
+                if (randomNum == 0) {
                     enemy = new Demon();
-                if(randomNum == 1)
+                }
+                if (randomNum == 1) {
                     enemy = new Dragon();
-                if(randomNum == 2)
+                }
+                if (randomNum == 2) {
                     enemy = new Vampire();
+                }
                 break;
-
-            }
-            case Enemy.MEDIUM: {
-                if(randomNum == 0)
+            case Enemy.MEDIUM:
+                if (randomNum == 0) {
                     enemy = new Giant();
-                if(randomNum == 1)
+                }
+                if (randomNum == 1) {
                     enemy = new Golem();
-                if(randomNum == 2)
+                }
+                if (randomNum == 2) {
                     enemy = new Lizardman();
+                }
                 break;
-
-            }
-            case Enemy.SMALL: {
-                if(randomNum == 0)
+            case Enemy.SMALL:
+                if (randomNum == 0) {
                     enemy = new Goblin();
-                if(randomNum == 1)
+                }
+                if (randomNum == 1) {
                     enemy = new Imp();
-                if(randomNum == 2)
+                }
+                if (randomNum == 2) {
                     enemy = new Treant();
+                }
                 break;
-
-            }
             default:
                 return null;
         }
-        enemy.setType(enemyType);
-        enemy.setLevel(curFloor);
+        if (enemy != null) {
+            enemy.setType(enemyType);
+            enemy.setLevel(curFloor);
+        }
         return enemy;
     }
 }

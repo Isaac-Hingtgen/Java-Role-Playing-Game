@@ -2,9 +2,13 @@ package main.java.ser316.rpg.equipment;
 
 public class Boots extends Equipment {
     public static Boots getBoots(int level) {
-        if (level < 7) return new leather_dress_shoes();
-        else if (level < 18) return new boots_of_swiftness();
-        else return new stompity_stompers();
+        if (level < 7) {
+            return new leather_dress_shoes();
+        } else if (level < 18) {
+            return new boots_of_swiftness();
+        } else {
+            return new stompity_stompers();
+        }
     }
 }
 

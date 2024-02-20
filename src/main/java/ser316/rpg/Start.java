@@ -1,21 +1,22 @@
 package main.java.ser316.rpg;
 
-import main.java.ser316.rpg.characters.*;
-import main.java.ser316.rpg.characters.Character;
+import java.util.Scanner;
+
+import main.java.ser316.rpg.characters.CharacterFactory;
+import main.java.ser316.rpg.characters.ConcreteCharacterFactory;
 import main.java.ser316.rpg.characters.affinities.*;
 import main.java.ser316.rpg.characters.enemies.Enemy;
 import main.java.ser316.rpg.characters.heroes.*;
 
-import java.util.Scanner;
 
 public class Start {
+    public static boolean demo = false;
     public static void main(String [] argv) {
         System.out.println("Descend the tower!\n");
 
-        Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in, "UTF-8");
 
         CharacterFactory characterFactory = new ConcreteCharacterFactory();
-//        Hero myHero = characterFactory.createHero(Hero.DARK_ELF);
         Hero myHero = null;
 
         do {
@@ -23,11 +24,16 @@ public class Start {
             System.out.println((Hero.OGRE + 1) + ": Ogre, \n\t" + Ogre.PASSIVE);
             System.out.println((Hero.ELF + 1) + ": Elf, \n\t" + Elf.PASSIVE);
             System.out.println((Hero.DARK_ELF + 1) + ": Dark Elf, \n\t" + DarkElf.PASSIVE);
+            System.out.println((4) + ": Test, \n\t(select this for demo)");
+
 
             int selection = input.nextInt();
             input.nextLine();
             selection--;
             myHero = characterFactory.createHero(selection);
+            if (selection == 3) {
+                demo = true;
+            }
 
         } while (myHero == null);
 
@@ -39,28 +45,58 @@ public class Start {
             System.out.println((Affinity.WARLOCK + 1) + ": Warlock \n" + Warlock.DESCRIPTION);
             System.out.println((Affinity.WARRIOR + 1) + ": Warrior \n" + Warrior.DESCRIPTION);
 
-            int selection = input.nextInt();
-            input.nextLine();
+            int selection;
+            if (demo) {
+                selection = (int) (Math.random() * 3) + 1;
+                displayInput(String.valueOf(selection));
+            } else {
+                selection = input.nextInt();
+                input.nextLine();
+            }
             selection--;
-
             myHero.setAffinity(selection);
+            System.out.println(myHero.getAffinity() + " selected.\n");
 
         } while (myHero.getAffinity() == null);
 
         System.out.println("Welcome " + myHero.getAffinity() + " " + myHero + "!\n");
 
         Shop shop = new Shop(input, myHero);
-        Seasons seasons = new Seasons();
         int curFloor = 1;
-        Seasons curSeason = seasons.getCurSeason(curFloor);
-        String in;
+        Seasons curSeason = Seasons.getCurSeason(curFloor);
+        String in = null;
+        String [] demoOptions = { "c", "e", "s", "c", "e", "i", "f" };
+        int prevInd = 0;
 
         do {
 
-            System.out.println("Currently on floor " + curFloor + ". It is " + curSeason + ".\n");
+            System.out.println("\nCURRENT FLOOR: " + curFloor + ". It is " + curSeason + ".\n");
 
-            System.out.println("What would you like to do? (s)hop, (c)haracter stats, (f)ight, check (e)quipment, season (i)nformation, (q)uit");
-            in = input.nextLine().toLowerCase();
+            System.out.println("What would you like to do? (s)hop, (c)haracter stats, (f)ight, check (e)quipment, season (i)nformation, (q)uit"
+                + ((!demo && myHero instanceof OpTestHero) ? ", return to (d)emo" : ""));
+
+            if (demo) {
+                if (curFloor == 101) {
+                    in = "q";
+                } else if (curFloor % 10 == 1) {
+                    in = demoOptions[prevInd];
+                    prevInd = (prevInd + 1) % demoOptions.length;
+                    if (in.equals("f")) {
+                        System.out.println("\nPress <ENTER> to continue. Or (d) to leave demo mode");
+                        String m = input.nextLine();
+                        if (m.equals("d")) {
+                            demo = false;
+                            in = "leave demo mode";
+                        }
+                    }
+                } else {
+                    in = "f";
+                }
+                displayInput(in);
+            } else {
+                in = input.nextLine().toLowerCase();
+            }
+
             if (in.equals("s")) {
                 shop.goToShop(curFloor);
             } else if (in.equals("c")) {
@@ -89,7 +125,7 @@ public class Start {
                     System.out.println("Zzzzzz...");
                     myHero.birth();
 
-                    if(Math.random() < 0.90) {
+                    if (Math.random() < 0.90) {
                         System.out.println("You wake up feeling well rested.");
                     } else if (Math.random() > 0.5) {
                         System.out.println("You did not sleep well last night and wake up with a headache.");
@@ -101,14 +137,18 @@ public class Start {
 
                     myHero.displayStatus();
                 }
-                seasons.getCurSeason(curFloor);
+                curSeason = Seasons.getCurSeason(curFloor);
                 myHero.addMana(5);
                 myHero.usePassive();
+            } else if (in.equals("d")) {
+                demo = true;
             }
 
 
-            if(myHero.getExperience() > 500) {
+            if (myHero.getExperience() > 1500 && !myHero.isAscended()) {
                 do {
+                    System.out.println();
+                    System.out.println("~~~The Hero has Ascended~~~");
                     System.out.println("Select ascended affinity:");
                     System.out.println((AscendedAffinity.PHANTOM + 1) + ": Phantom \n\tAbilities unknown");
                     System.out.println((AscendedAffinity.SAGE + 1) + ": Sage \n\tAbilities unknown");
@@ -117,7 +157,7 @@ public class Start {
                     int selection = input.nextInt();
                     input.nextLine();
 
-                    myHero.setAscendedAffinity(selection);
+                    myHero.setAscendedAffinity(--selection);
                 } while (!(myHero.getAffinity() instanceof AscendedAffinity));
             }
 
@@ -125,7 +165,11 @@ public class Start {
         System.out.println("Goodbye.");
     }
 
-    public int foo(int num) {
-        return num;
+    public static void displayInput(String input) {
+        if (true) {
+            System.out.println("\nInput: \u001B[32m" + input + "\u001B[0m\n");
+        } else {
+            System.out.println("\nInput: " + input + "\n");
+        }
     }
 }

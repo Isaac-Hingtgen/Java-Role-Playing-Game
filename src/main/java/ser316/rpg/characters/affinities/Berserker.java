@@ -13,6 +13,6 @@ public class Berserker extends AscendedAffinity {
         hero.addDefenceBonus(-20);
         hero.removeHealth(3);
         hero.addAttackBonus(140);
-        SKILL = "SEETHING RAGE";
+        skill = "SEETHING RAGE";
     }
 }

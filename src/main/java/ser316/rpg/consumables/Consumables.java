@@ -7,7 +7,9 @@ public abstract class Consumables extends Items {
 
     public static Consumables getRandomConsumable() {
         int num = (int) (Math.random() * (NUMBER_OF_ITEMS + DurationBasedConsumable.NUMBER_OF_ITEMS));
-        if (num > 3 && num < 7) return DurationBasedConsumable.getConsumable(num);
+        if (num > 3 && num < 7) {
+            return DurationBasedConsumable.getConsumable(num);
+        }
         switch (num) {
             case 0:
                 return new small_potion();
@@ -21,6 +23,7 @@ public abstract class Consumables extends Items {
                 return null;
         }
     }
+
     @Override
     public String getDescription() {
         return description;
