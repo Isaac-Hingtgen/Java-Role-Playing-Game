@@ -10,6 +10,12 @@ The wrapper design patter will be used to implement status effects, weapons/armo
 ----------
 A5b:
 
-see PDF
+After gradle run, input 4 to enter demo mode. It will stop every ten floors and do a basic display of stats and such. Eventually, the demo does ask to choose and ascedency affinity, select any at random, it will change the special attack skill. 
+
+If running on a shell without text colors and extra characters are displaying with the "Input: #", please go into Start.displayInput() and change the if statement to false.
 
 Screencast: https://youtu.be/38LFMKs5CSI 
+
+for everything else, please see PDF.
+
+
