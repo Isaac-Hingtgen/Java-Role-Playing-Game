@@ -15,7 +15,7 @@ import main.java.ser316.rpg.equipment.*;
 import main.java.ser316.rpg.Items;
 import main.java.ser316.rpg.Seasons;
 
-
+// "Context" in State design pattern
 public abstract class Hero extends Character {
 
     public static final int OGRE = 0;
@@ -24,6 +24,7 @@ public abstract class Hero extends Character {
     public static final int MAX_NUM_POTIONS = 3;
     private boolean isAscended;
 
+    // state variables in State DP: /////////////////////////////
     protected ArrayList<Consumables> consumables = new ArrayList<>();
     protected ArrayList<DurationBasedConsumable> consumablesInEffect = new ArrayList<>();
     protected Chest chest = null;
@@ -32,6 +33,7 @@ public abstract class Hero extends Character {
     protected Jewelry jewelry = null;
     protected Weapon weapon = null;
     protected Affinity affinity = null;
+    /////////////////////////////////////////////////////////////
 
     protected int experience;
     protected int gold;

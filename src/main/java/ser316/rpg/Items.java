@@ -49,6 +49,7 @@ public abstract class Items {
         this.sold = sold;
     }
 
+    // same as Handle(Context context) in State DP
     public void addBonus(Hero hero) {
         hero.addDefenceBonus(this.defenceBonus);
         hero.addAttackBonus(this.attackBonus);
