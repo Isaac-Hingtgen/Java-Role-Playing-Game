@@ -101,7 +101,6 @@ public class HeroTest {
     @Test
     public void hasInventorySpace() {
         hero.equip(Consumables.getRandomConsumable());
-        hero.equip(Consumables.getRandomConsumable());
         assertTrue(hero.hasInventorySpace());
         hero.equip(Consumables.getRandomConsumable());
         assertFalse(hero.hasInventorySpace());
